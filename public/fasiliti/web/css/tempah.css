@@ -1,0 +1,458 @@
+
+.page-title {
+    text-align: center; /* Center the title horizontally */
+    margin: 20px 0; /* Add space above and below the title */
+    font-size: 24px; /* Adjust font size */
+    font-weight: bold; /* Make the title bold */
+    color: #333; /* Title text color */
+    line-height: 1.5; /* Line height for better readability */
+}
+.booking-form{
+    margin: 50px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    max-width: 1300px;
+    margin: auto; /* Center the form vertically */
+    margin-top: 20px;
+    background-color: #ffff;
+}
+
+fieldset {
+    margin: 0;
+    padding: 0;
+}
+
+.section-container {
+    margin: 0;
+    padding: 0;
+}
+
+/* General Styles for the Form */
+.custom-input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.custom-textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 5px solid #ccc;
+    box-sizing: border-box;
+    height: 100px;
+}
+
+.custom-checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.custom-checkbox label {
+    margin-right: 15px;
+}
+
+/* Form Row for Input Grouping */
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-column {
+    flex: 1;
+}
+
+/* Heading Styles */
+h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.room-highlight {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Align items vertically */
+    gap: 20px; /* Space between items */
+    background-color: #6a84a6;
+    border: 1px solid #6a84a6;
+    padding: 10px 20px; /* Add some padding */
+    margin-bottom: 20px;
+    width: 100%;
+    height: 60px;
+    text-align: center; /* Center the text */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow to the container */
+    border-radius: 10px; /* Rounded corners for a softer look */
+    position: relative;
+    overflow: hidden;
+}
+
+.room-highlight::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: highlight-glow 3s infinite;
+}
+
+@keyframes highlight-glow {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 0%;
+    }
+    100% {
+        left: -100%;
+    }
+}
+
+.room-highlight p {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    color: #fff9f9;
+    font-weight: bold; /* Make the text bold */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 0px 0px 10px rgba(255, 255, 255, 0.5); /* Add text shadow */
+    white-space: nowrap; /* Prevent text from wrapping */
+    z-index: 1; /* Ensure text stays above the glowing effect */
+}
+
+.checkbox-list label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Button Styles */
+button.add-participant {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+button.add-participant:hover {
+    background-color: #218838;
+}
+
+/* Specific Styles for Showing/ Hiding Sections */
+#asrama-fields,
+#pelajar-fields,
+#penginap-persendirian-fields,
+#penginap-berkumpulan-fields,
+#peralatan-fields {
+    display: none;
+}
+
+#group-participants .participant {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+#group-participants .participant input {
+    margin-bottom: 10px;
+}
+.required label::after {
+    content: " *";
+    color: red;
+}
+
+.form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.alert {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 4px;
+}
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+#booking-alert {
+    display: none;
+    margin: 20px 0;
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    text-align: center;
+    font-weight: 500;
+}
+
+#booking-alert:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Desktop: 2 column */
+    gap: 20px;
+}
+
+/* #calendar-container {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+} */
+
+
+/* Mobile View: 1 Column & Auto-Susun */
+@media screen and (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* Mobile: tukar ke 1 column */
+    }
+    .tarikh-masuk { order: 1; }
+    .tarikh-keluar { order: 2; } 
+    .no-kp-pemohon { order: 3; }
+    .no-tel { order: 4;}
+    .agensi-pemohon { order: 5;}
+    .alamat { order: 6;}/* Pastikan Tarikh Keluar turun bawah */
+
+    .room-highlight p {
+        white-space: normal; /* Allow text to wrap */
+        font-size: 20px; /* Optionally kecilkan sikit */
+        text-align: center;
+    }
+
+    .room-highlight {
+        height: auto; /* Auto height untuk accommodate text */
+        padding: 10px; /* Lebih selesa untuk mobile */
+        flex-direction: column; /* Stack item secara menegak kalau ada lebih dari 1 */
+        gap: 10px;
+        transform: none; /* remove this */
+        margin-bottom: 5px; /* atau 0 kalau nak rapat gila */
+    }
+}
+
+@media (max-width: 480px) { /* Lebih ketat untuk saiz mobile kecil */
+    #calendar-container {
+        overflow-x: auto !important; /* Pastikan boleh scroll kalau besar */
+        width: 100% !important;
+        max-width: 100% !important; /* Supaya tak melebihi skrin */
+    }
+
+    #calendar {
+        max-width: 100% !important; /* Paksa calendar ikut container */
+        width: 100% !important;
+        /* min-width: 300px !important; */
+        font-size: 9px !important; /* Lebih kecil */
+        padding: 10px;
+        overflow-x: hidden !important;
+    }
+
+    .fc {
+        font-size: 12px !important; /* General calendar text */
+    }
+
+    .fc-toolbar-title {
+        font-size: 14px !important; /* Tajuk bulan lebih kecil */
+    }
+
+    .fc-daygrid-day {
+        min-width: 30px !important; /* Kecilkan setiap sel */
+        padding: 1px !important;
+    }
+
+    .fc-daygrid-day-number {
+        font-size: 12px !important; /* Nombor tarikh lebih kecil */
+    }
+
+    .fc-daygrid-day-frame {
+        max-height: 80px !important; /* Kurangkan tinggi setiap kotak hari */
+        overflow-y: auto; /* Boleh scroll kalau banyak event */
+    }
+
+    .fc-event {
+        font-size: 10px !important; /* Event text kecilkan lagi */
+        padding: 1px 3px !important; /* Kurangkan padding dalam event */
+    }
+
+    .fc-button {
+        font-size: 9px !important; /* Button kecilkan */
+        padding: 3px 3px !important;
+    }
+
+    .fc-toolbar {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .form-grid {
+        grid-gap: 5px !important; /* Kurangkan jarak antara field */
+    }
+
+
+    .fc-view {
+        min-width: 350px !important;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    input, select, textarea {
+        font-size: 12px !important; /* Kecilkan teks input */
+        padding: 6px !important; /* Kurangkan padding */
+        margin-bottom: 5px !important; /* Kurangkan jarak bawah input */
+    }
+
+    .booking-form{
+        margin: 20px;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        max-width: 1300px;
+        margin: auto; /* Center the form vertically */
+        margin-top: -20px;
+        background-color: #ffff;
+    }
+    /* Tambah jarak atas supaya content naik sikit */
+    .room-highlight {
+        transform: translateY(-40px); /* Tukar nilai ikut keperluan */
+    }
+    
+    
+}
+
+
+
+
+/* Calendar Style */
+#calendar {
+    font-family: Arial, sans-serif;
+    background: white;
+    color:#333;
+    padding: 20px;
+    width: 100%;
+    /* min-height: 400px; */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Calendar Title */
+#calendar .fc-toolbar-title {
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Weekday Headers */
+#calendar .fc-day-header {
+    color: #0056b3;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Day Numbers */
+#calendar .fc-daygrid-day-number {
+    color:rgb(70, 72, 74);
+    font-weight: bold;
+}
+
+/* Calendar Links */
+#calendar a {
+    color: inherit;
+    text-decoration: none;
+}
+
+#calendar a:hover {
+    color: #0056b3;
+}
+
+/* Hover Effect */
+#calendar .fc-daygrid-day:hover {
+    background-color: #f5f5f5;
+}
+
+.calendar-container {
+    width: 100%;
+    max-width: 1300px;
+    /* margin-left: 500px; */
+    overflow-x: auto;
+    display: block;
+    margin: 0 auto; /* Center kat tengah */
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .calendar-container {
+        width: 100%;
+        overflow-x: auto; 
+        padding: 10px;
+    }
+
+    #calendar {
+        font-size: 10px;
+        padding: 15px;
+    }
+
+    /* Scroll for multiple events */
+    .fc-daygrid-day-frame {
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+    .fc-daygrid {
+        min-width: 100% !important;
+    }
+    
+}
+
+
+#calendar {
+    height: auto !important;
+    min-height: 400px;
+}
+
+
+/* Adjust font size supaya tak terlalu kecil */
+.fc {
+    font-size: 14px !important;
+    width: 100% !important;
+}
+
+/* Supaya calendar tak compressed macam dalam gambar */
+.fc-view {
+    overflow-x: auto !important;
+}
+
+/* Button controls responsive */
+.fc-toolbar {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Adjust saiz font dalam event supaya tak berselerak */
+.fc-event {
+    font-size: 12px !important;
+    padding: 2px;
+}
+

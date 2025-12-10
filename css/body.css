@@ -1,0 +1,48 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 100%;
+	width: 900px;
+	border-top-width: thin;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-left-width: thin;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 150%;
+	font-style: normal;
+	font-weight: bolder;
+	color: #00F;
+	text-transform: uppercase;
+}
+.TajukColumn {
+	border: thin none #000;
+}
+th {
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #F90;
+	font-weight: bold;
+	font-size: 90%;
+	border: 1px solid #ECE5B6;
+	text-transform: uppercase;
+}
+table {
+	border: 1px solid #ECE5B6;
+}
+td {
+	border: 1px solid #ECE5B6;
+	font-size: 90%;
+}
+.fontkategori2 {
+	font-size: 70%;
+}
+.senarai tr:nth-child(odd)   { background-color:#eee; }
+.senarai tr:nth-child(even)    { background-color:#ccc; }
+.senarai tr:first-child {background-color:#F96;}
+p.pengguna {
+	font-size: 10pt;
+}

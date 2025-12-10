@@ -1,0 +1,57 @@
+.all-facilities-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.facilities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.facility-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.facility-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.facility-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.facility-action {
+    margin-bottom: 15px;
+}
+
+.btn-tempah {
+    display: inline-block;
+    background-color: #2d4a56;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn-tempah:hover {
+    background-color: #2d4a56;
+}

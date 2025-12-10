@@ -1,0 +1,250 @@
+/* Header Styling */
+.header {
+    background-color: #0D2B52; /* Dark blue background */
+    color: #FFF; /* White text */
+    padding: 5px 0;
+    font-size: 1rem;
+    position: fixed;  /* Fix the header to the top of the page */
+    top: 0;           /* Stick to the top */
+    left: 0;          /* Stick to the left */
+    width: 100%;      /* Make it span the full width */
+    z-index: 9999;    /* Ensure it's above other content */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow to the header */
+}
+
+/* Body padding to prevent overlap with fixed header */
+body {
+    padding-top: 70px; /* Adjust this value to match header height */
+    font-family: 'Segoe UI';
+}
+
+
+.text-style {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(90deg, #4CAF50, #2196F3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+}
+
+.header .container {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Space between logo & toggle */
+    padding: 0 15px;
+    height: 55px; /* Make sure header has a defined height */
+}
+
+/* Lebarkan hanya container dalam main */
+.container.content-wide {
+    max-width: 100%;
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+
+.logo h1 {
+    font-size: 1.8rem;
+    margin: 0; /* Remove default margin */
+    color: #FFF;
+    display: flex;
+    align-items: center; /* Align text vertically */
+    gap: 10px; /* Adjust spacing if needed */
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #333;
+    font-size: 0.7rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 25px 0;
+    padding-bottom: 2px;
+}
+
+/* Pastikan Container Ikut Bootstrap */
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Row Align Properly */
+.footer .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Kiri - Contact Info */
+.footer .col-md-6:first-child {
+    text-align: left;
+}
+
+/* Kanan - Hak Cipta */
+.footer .col-md-6:last-child {
+    text-align: right;
+}
+
+/* Untuk Mobile - Semua Tengah */
+@media (max-width: 768px) {
+
+    .footer .row {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer .col-md-6 {
+        text-align: center; 
+    }
+
+    .container.content-wide {
+        max-width: 100%;
+        width: 100%;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        /* background: pink !important;  */
+    }
+
+}
+
+
+/* Sidebar Offcanvas */
+.offcanvas-end {
+    width: 230px !important; /* override keras */
+    max-width: 100vw; /* untuk elak overflow kat mobile */
+    background-color: white;
+}
+
+
+.offcanvas-body nav {
+    padding: 0;
+}
+
+.offcanvas-body .navbar-nav {
+    width: 100%;
+    text-align: left;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.offcanvas-body .nav-item {
+    width: 100%;
+}
+
+.offcanvas-body .nav-link {
+    display: block;
+    padding: 8px 10px;
+    color: #2c3e50;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2px;
+    text-align: left;
+}
+
+.offcanvas-body .nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+
+/* Hide Desktop Menu in Small Screens */
+@media (max-width: 991px) {
+    .header nav {
+        display: none;
+    }
+}
+
+.sidebar {
+    width: 250px;
+    background: white;
+    color: #2c3e50;
+    padding: 15px;
+    min-height: 100vh;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    left: 0;
+    top: 73px;
+    z-index: 1001;
+    transform: translateX(0); /* Sidebar DEFAULT nampak */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Bila ada class "hide", sidebar sembunyi */
+.sidebar.hide {
+    transform: translateX(-100%);
+}
+
+/* Content default position */
+.content {
+    transition: margin-left 0.3s ease-in-out;
+    margin-left: 250px; /* Sama dengan width sidebar */
+}
+
+/* Bila sidebar hidden, content bergerak ke kiri */
+.sidebar.hide ~ .content {
+    margin-left: 0;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    padding: 8px 0;
+}
+
+.nav-item a {
+    display: flex;
+    align-items: center;
+    color: #2c3e50;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.nav-item a i {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.nav-item a:hover,
+.nav-item a.active {
+    background: rgba(196, 232, 255, 0.408); /* Optional: bagi efek hover */
+    color: #2a2a4a;
+    
+}
+
+.nav-heading {
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    color: #555;
+}
+
+/* Pastikan hanya teks dalam navbar putih */
+.navbar-nav .nav-link,
+.navbar-nav .dropdown-toggle {
+    color: #FFF !important;
+}
+
+/* Pastikan submenu text putih, tapi background kekal */
+.dropdown-menu .dropdown-item,
+.dropdown-submenu .dropdown-toggle {
+    color: #000000 !important;
+}
+
+
+
+

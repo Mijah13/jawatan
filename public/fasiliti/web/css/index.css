@@ -1,0 +1,68 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    /* background: url('../images/belakang.jpg') no-repeat center center fixed; */
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+/* Gradient Box Styling */
+.gradient-box {
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1));
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    max-width: 700px; /* Reducing the width of the box */
+    
+    margin: 0 auto; /* Centers the box horizontally */
+}
+
+/* Header and Logo Styling */
+.header-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.header-logo img {
+    max-height: 90px;
+    margin-bottom: 20px; /* Space between logo and heading */
+}
+
+.header-logo h1 {
+    font-size: 2.5rem; /* Adjusted the size to fit the box better */
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Hero section styling */
+.jumbotron {
+    background: none;
+    color: #fff;
+    padding: 0;
+}
+
+.jumbotron p {
+    font-size: 1.25rem;
+    color: #000000;
+    text-align: center;
+}
+
+/* Custom Button Styling */
+.btn-primary {
+    background-color: #384B70;
+    border-color: #384B70;
+    border-radius: 50px;
+    font-size: 1rem; /* Adjust the size of the button text here */
+    padding: 10px 20px; /* Optional: adjust padding to make the button look proportionate */
+}
+
+.btn-primary:hover {
+    background-color: #2e3d5b;
+    border-color: #2e3d5b;
+}
