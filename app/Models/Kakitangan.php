@@ -30,4 +30,28 @@ class Kakitangan extends Authenticatable
     {
         return $this->katalaluan;
     }
+
+   // APC
+    public function apc()
+    {
+        return $this->hasMany(Apc::class, 'id_kakitangan', 'id');
+    }
+
+    // Pencapaian
+    public function pencapaian()
+    {
+        return $this->hasMany(Pencapaian::class, 'id_kakitangan', 'id');
+    }
+
+    // Pingat
+    public function pingat()
+    {
+        return $this->hasMany(Pingat::class, 'id_kakitangan', 'id');
+    }
+
+    // Harta
+    public function harta()
+    {
+        return $this->hasMany(Isyiharhartum::class, 'id_kakitangan', 'id');
+    }
 }

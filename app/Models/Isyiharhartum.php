@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Isyiharhartum
- * 
+ *
  * @property int $id
  * @property string|null $mykad
  * @property Carbon $tarikhisytihar
@@ -42,4 +42,10 @@ class Isyiharhartum extends Model
 		'id_kakitangan',
 		'no_rujukan'
 	];
+
+    public function jenisIsytihar()
+    {
+        return $this->belongsTo(JenisIsytihar::class, 'jenis', 'id');
+    }
+
 }

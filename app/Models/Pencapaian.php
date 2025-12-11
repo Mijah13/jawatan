@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Pencapaian
- * 
+ *
  * @property int $id
  * @property string|null $mykad
  * @property string $pencapaian
@@ -42,4 +42,10 @@ class Pencapaian extends Model
 		'tarikhkemaskini',
 		'id_kakitangan'
 	];
+
+    public function peringkatSumbangan()
+    {
+        return $this->belongsTo(PeringkatSumbangan::class, 'peringkat', 'id');
+    }
+
 }

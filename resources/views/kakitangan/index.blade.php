@@ -1,16 +1,121 @@
-@extends('layout')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
+            {{ __('Maklumat Peribadi') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-<h1>Senarai Kakitangan</h1>
+    <div class="py-12">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
 
-<table class="table">
-@foreach ($rows as $row)
-<tr>
-  <td>{{ $row->nama }}</td>
-  <td>{{ $row->nokp }}</td>
-  <td><a href="{{ route('kakitangan.edit', $row->id) }}">Edit</a></td>
-</tr>
-@endforeach
-</table>
+                    <table class="w-full border border-collapse border-gray-300">
+                        <tbody>
+                            <tr class="bg-yellow-100">
+                                <td class="p-2 font-bold border border-gray-300">Nama</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->nama }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">MyKAD</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->mykad }}</td>
+                            </tr>
+                            <tr class="bg-yellow-100">
+                                <td class="p-2 font-bold border border-gray-300">Tarikh Lahir</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->tarikhlahir }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">Nombor Fail Peribadi</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->nofailperibadi }}</td>
+                            </tr>
+                            <tr class="bg-yellow-100">
+                                <td class="p-2 font-bold border border-gray-300">Jawatan</td>
+                                <td class="p-2 border border-gray-300">
+                                    {{ $kakitangan->kodjawatan }} - {{ $kakitangan->jawatan }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">Gred</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->gred }}</td>
+                            </tr>
+                            <tr class="bg-yellow-100">
+                                <td class="p-2 font-bold border border-gray-300">Nombor Waran</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->nowaran }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">Penempatan Mengikut Waran</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->kodprogram }} - {{ $kakitangan->namaprogram }}</td>
+                            </tr>
+                            <tr class="bg-yellow-100">
+                                <td class="p-2 font-bold border border-gray-300">Penempatan Operasi</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->kodoperasi }} - {{ $kakitangan->programoperasi }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">Unit</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->unit }}</td>
+                            </tr>
+                            <tr class="bg-yellow-100">
+                                <td class="p-2 font-bold border border-gray-300">Kod Penempatan</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->kodpenempatan }} - {{ $kakitangan->jenispenempatan }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">Tarikh Lantikan Pertama</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->tarikhlantikanpertama }}</td>
+                            </tr>
+                            <tr class="bg-yellow-100">
+                                <td class="p-2 font-bold border border-gray-300">Tarikh Lantikan Ke Jawatan Sekarang</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->tarikhlantikansekarang }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">HRMIS Sub-Modul Perkhidmatan Telah Dikemaskini</td>
+                                <td class="p-2 border border-gray-300">
+                                    {{ $kakitangan->hrmiskemaskini ? 'Sudah Kemaskini' : 'Belum Kemaskini' }}
+                                </td>
+                            </tr>
 
-@endsection
+                            {{-- Repeat similar structure for harta, apc, pencapaian, pingat --}}
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">Isytihar Harta</td>
+                                <td class="p-2 border border-gray-300">
+                                    @foreach($kakitangan->harta as $h)
+                                        {{ $h->tarikhisytihar }}, {{ $h->no_rujukan }}, {{ $h->jenisIsytihar->jenis ?? '' }} <br>
+                                    @endforeach
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">Anugerah Perkhidmatan Cemerlang</td>
+                                <td class="p-2 border border-gray-300">
+                                    @foreach($kakitangan->apc as $a)
+                                        {{ $a->tahunterima }} <br>
+                                    @endforeach
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">Pencapaian</td>
+                                <td class="p-2 border border-gray-300">
+                                    @foreach($kakitangan->pencapaian as $p)
+                                        {{ $p->pencapaian }}, {{ $p->peringkatSumbangan->peringkat ?? '' }}, {{ $p->tarikhpencapaian }} <br>
+                                    @endforeach
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">Pingat Kebesaran</td>
+                                <td class="p-2 border border-gray-300">
+                                    @foreach($kakitangan->pingat as $pg)
+                                        {{ $pg->pingat }} <br>
+                                    @endforeach
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

@@ -15,7 +15,9 @@ Route::get('/', function () {
 
 // Dashboard
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    // Get the authenticated user from session
+    $user = auth()->user();
+    return view('dashboard', ['user' => $user]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Authenticated routes
@@ -26,6 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
+    // Keluarga
+    Route::get('/keluarga', [KeluargaController::class, 'index']);
+    // Kakitangan
+    Route::get('/kakitangan', [KakitanganController::class, 'index']);
+    // Jawatan
+    Route::get('/jawatan', [JawatanController::class, 'index']);
+
     // =================================================
     // eJAWATAN MODULES ROUTES
     // =================================================
@@ -33,6 +43,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('kakitangan', KakitanganController::class);
     Route::resource('jawatan', JawatanController::class);
     Route::resource('elaun', ElaunController::class);
+    Route::resource('laporan', LaporanController::class);
+    Route::resource('pentadbir', PentadbirController::class);
+    Route::resource('bantuan', BantuanController::class);
 });
 
 require __DIR__ . '/auth.php';
