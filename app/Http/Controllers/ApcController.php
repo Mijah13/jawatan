@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Apc;
+use App\Models\Kakitangan;
+
+class ApcController extends Controller
+{
+    public function create(Request $request, $id_kakitangan)
+    {
+
+        $kakitangan = Kakitangan::findOrFail($id_kakitangan);
+
+        $apc_list = Apc::where('id_kakitangan', $id_kakitangan)
+            ->orderBy('tahunterima', 'asc')
+            ->get();
+
+        return view('kakitangan.apc_tambah', compact('kakitangan', 'apc_list'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'id_kakitangan' => 'required|integer',
+            'tahunterima' => 'required|integer|digits:4',
+        ]);
+
+        // Create date from year (e.g. 2023-01-01) since database expects date
+        $date = $request->tahunterima . '-01-01';
+
+        Apc::create([
+            'id_kakitangan' => $request->id_kakitangan,
+            'tahunterima' => $date,
+            'tarikhkemaskini' => now(),
+        ]);
+
+        return redirect()->route('apc.create', ['id' => $request->id_kakitangan])
+            ->with('success', 'Maklumat APC berjaya ditambah.');
+    }
+}

@@ -17,13 +17,13 @@ class KeluargaController extends Controller
             ->orderBy('nama')
             ->get();
 
-        return view('keluarga.index', compact('rows'));
+        return view('kakitangan.keluarga.index', compact('rows'));
     }
 
     public function create()
     {
         $hubungan = Hubungan::orderBy('hubungan')->get();
-        return view('keluarga.create', compact('hubungan'));
+        return view('kakitangan.keluarga.create', compact('hubungan'));
     }
 
     public function store(Request $request)
@@ -46,7 +46,7 @@ class KeluargaController extends Controller
     public function edit(Keluarga $keluarga)
     {
         $hubungan = Hubungan::orderBy('hubungan')->get();
-        return view('keluarga.edit', compact('keluarga', 'hubungan'));
+        return view('kakitangan.keluarga.edit', compact('keluarga', 'hubungan'));
     }
 
     public function update(Request $request, Keluarga $keluarga)

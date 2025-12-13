@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\GajiPokok;
+use App\Models\ElaunDapat;
+use Illuminate\Support\Facades\Auth;
+
+class GajiController extends Controller
+{
+    public function index()
+    {
+        $id = Auth::user()->id;
+        $gaji = GajiPokok::where('idkakitangan', $id)->first();
+        $elaun = ElaunDapat::with('elaunRelation')->where('idkakitangan', $id)->get();
+
+        return view('kakitangan.gaji.index', compact('gaji', 'elaun'));
+    }
+
+    public function createGaji()
+    {
+        return view('kakitangan.gaji.create');
+    }
+
+    public function storeGaji(Request $request)
+    {
+        $request->validate([
+            'no_gaji' => 'required|string',
+            'gaji' => 'required|numeric',
+            'gred_gaji' => 'required|string',
+        ]);
+
+        GajiPokok::create([
+            'idkakitangan' => Auth::user()->id,
+            'no_gaji' => $request->no_gaji,
+            'gaji_pokok' => $request->gaji,
+            'gred_gaji' => $request->gred_gaji,
+        ]);
+
+        return redirect()->route('gaji.index')->with('success', 'Maklumat gaji berjaya ditambah.');
+    }
+
+    public function createElaun()
+    {
+        $elaun = \App\Models\Elaun::orderBy('nama', 'asc')->get();
+        return view('kakitangan.gaji.elaun_create', compact('elaun'));
+    }
+
+    public function storeElaun(Request $request)
+    {
+        $request->validate([
+            'elaun' => 'required|integer',
+            'nilai' => 'required|numeric',
+        ]);
+
+        ElaunDapat::create([
+            'idkakitangan' => Auth::user()->id,
+            'elaun' => $request->elaun,
+            'nilai' => $request->nilai,
+        ]);
+
+        return redirect()->route('gaji.index')->with('success', 'Elaun berjaya ditambah.');
+    }
+}

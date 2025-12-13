@@ -17,6 +17,27 @@ class Kakitangan extends Authenticatable
         'nama',
         'katalaluan',
         'aktif',
+        'tarikhlahir',
+        'nofailperibadi',
+        'jawatan',
+        'gred',
+        'nowaran',
+        'penempatanwaran',
+        'penempatanoperasi',
+        'unit',
+        'tarikhlantikanpertama',
+        'tarikhlantikansekarang',
+        'tarikhpengesahanjawatan',
+        'tarikhmemangku',
+        'tarikhnaikpangkat',
+        'tarikhkeciast',
+        'tarikhbertukarkeluar',
+        'penempatanbaru',
+        'hrmiskemaskini',
+        'kodpenempatan',
+        'level',
+        'emel',
+        'taraf_perkhidmatan',
     ];
 
     // Use "mykad" as username
@@ -31,7 +52,7 @@ class Kakitangan extends Authenticatable
         return $this->katalaluan;
     }
 
-   // APC
+    // APC
     public function apc()
     {
         return $this->hasMany(Apc::class, 'id_kakitangan', 'id');
@@ -53,5 +74,36 @@ class Kakitangan extends Authenticatable
     public function harta()
     {
         return $this->hasMany(Isyiharhartum::class, 'id_kakitangan', 'id');
+    }
+
+    // Relationships for Dropdowns/Display
+    public function jawatanRelation()
+    {
+        return $this->belongsTo(Jawatan::class, 'jawatan', 'id');
+    }
+
+    public function gredRelation()
+    {
+        return $this->belongsTo(Gred::class, 'gred', 'id');
+    }
+
+    public function penempatanWaranRelation()
+    {
+        return $this->belongsTo(Organisasi::class, 'penempatanwaran', 'id');
+    }
+
+    public function penempatanOperasiRelation()
+    {
+        return $this->belongsTo(Organisasi::class, 'penempatanoperasi', 'id');
+    }
+
+    public function unitRelation()
+    {
+        return $this->belongsTo(Unit::class, 'unit', 'id');
+    }
+
+    public function kodPenempatanRelation()
+    {
+        return $this->belongsTo(Penempatan::class, 'kodpenempatan', 'id');
     }
 }

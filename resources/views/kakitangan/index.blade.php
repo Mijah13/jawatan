@@ -31,12 +31,13 @@
                             <tr class="bg-yellow-100">
                                 <td class="p-2 font-bold border border-gray-300">Jawatan</td>
                                 <td class="p-2 border border-gray-300">
-                                    {{ $kakitangan->kodjawatan }} - {{ $kakitangan->jawatan }}
+                                    {{ $kakitangan->jawatanRelation->kod ?? '' }} -
+                                    {{ $kakitangan->jawatanRelation->jawatan ?? '' }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="p-2 font-bold border border-gray-300">Gred</td>
-                                <td class="p-2 border border-gray-300">{{ $kakitangan->gred }}</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->gredRelation->gred ?? '' }}</td>
                             </tr>
                             <tr class="bg-yellow-100">
                                 <td class="p-2 font-bold border border-gray-300">Nombor Waran</td>
@@ -44,30 +45,75 @@
                             </tr>
                             <tr>
                                 <td class="p-2 font-bold border border-gray-300">Penempatan Mengikut Waran</td>
-                                <td class="p-2 border border-gray-300">{{ $kakitangan->kodprogram }} - {{ $kakitangan->namaprogram }}</td>
+                                <td class="p-2 border border-gray-300">
+                                    {{ $kakitangan->penempatanWaranRelation->kod ?? '' }} -
+                                    {{ $kakitangan->penempatanWaranRelation->program ?? '' }}
+                                </td>
                             </tr>
                             <tr class="bg-yellow-100">
                                 <td class="p-2 font-bold border border-gray-300">Penempatan Operasi</td>
-                                <td class="p-2 border border-gray-300">{{ $kakitangan->kodoperasi }} - {{ $kakitangan->programoperasi }}</td>
+                                <td class="p-2 border border-gray-300">
+                                    {{ $kakitangan->penempatanOperasiRelation->kod ?? '' }} -
+                                    {{ $kakitangan->penempatanOperasiRelation->program ?? '' }}
+                                </td>
                             </tr>
                             <tr>
                                 <td class="p-2 font-bold border border-gray-300">Unit</td>
-                                <td class="p-2 border border-gray-300">{{ $kakitangan->unit }}</td>
+                                <td class="p-2 border border-gray-300">{{ $kakitangan->unitRelation->unit ?? '' }}</td>
                             </tr>
                             <tr class="bg-yellow-100">
                                 <td class="p-2 font-bold border border-gray-300">Kod Penempatan</td>
-                                <td class="p-2 border border-gray-300">{{ $kakitangan->kodpenempatan }} - {{ $kakitangan->jenispenempatan }}</td>
+                                <td class="p-2 border border-gray-300">
+                                    {{ $kakitangan->kodPenempatanRelation->kod ?? '' }} -
+                                    {{ $kakitangan->jenisPenempatanRelation->jenis ?? '' }}
+                                </td>
                             </tr>
                             <tr>
                                 <td class="p-2 font-bold border border-gray-300">Tarikh Lantikan Pertama</td>
                                 <td class="p-2 border border-gray-300">{{ $kakitangan->tarikhlantikanpertama }}</td>
                             </tr>
                             <tr class="bg-yellow-100">
-                                <td class="p-2 font-bold border border-gray-300">Tarikh Lantikan Ke Jawatan Sekarang</td>
+                                <td class="p-2 font-bold border border-gray-300">Tarikh Lantikan Ke Jawatan Sekarang
+                                </td>
                                 <td class="p-2 border border-gray-300">{{ $kakitangan->tarikhlantikansekarang }}</td>
                             </tr>
+                            <tr class="bg-yellow-100">
+                                <td class="p-2 border border-gray-300">Tarikh Lantikan Ke Jawatan Sekarang</td>
+                                <td class="p-2 font-bold border border-gray-300">
+                                    {{ $kakitangan->tarikhlantikansekarang }}
+                                </td>
+                            </tr>
                             <tr>
-                                <td class="p-2 font-bold border border-gray-300">HRMIS Sub-Modul Perkhidmatan Telah Dikemaskini</td>
+                                <td class="p-2 border border-gray-300">Tarikh Pengesahan Jawatan</td>
+                                <td class="p-2 font-bold border border-gray-300">
+                                    {{ $kakitangan->tarikhpengesahanjawatan }}
+                                </td>
+                            </tr>
+                            <tr class="bg-yellow-100">
+                                <td class="p-2 border border-gray-300">Tarikh Memangku</td>
+                                <td class="p-2 font-bold border border-gray-300">{{ $kakitangan->tarikhmemangku }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-300">Tarikh Naik Pangkat</td>
+                                <td class="p-2 font-bold border border-gray-300">{{ $kakitangan->tarikhnaikpangkat }}
+                                </td>
+                            </tr>
+                            <tr class="bg-yellow-100">
+                                <td class="p-2 border border-gray-300">Tarikh Ke CIAST</td>
+                                <td class="p-2 font-bold border border-gray-300">{{ $kakitangan->tarikhkeciast }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-300">Tarikh Bertukar Dari CIAST</td>
+                                <td class="p-2 font-bold border border-gray-300">{{ $kakitangan->tarikhbertukarkeluar }}
+                                </td>
+                            </tr>
+                            <tr class="bg-yellow-100">
+                                <td class="p-2 border border-gray-300">Penempatan Baru</td>
+                                <td class="p-2 font-bold border border-gray-300">{{ $kakitangan->penempatanbaru }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold border border-gray-300">HRMIS Sub-Modul Perkhidmatan Telah
+                                    Dikemaskini</td>
                                 <td class="p-2 border border-gray-300">
                                     {{ $kakitangan->hrmiskemaskini ? 'Sudah Kemaskini' : 'Belum Kemaskini' }}
                                 </td>
@@ -78,7 +124,8 @@
                                 <td class="p-2 font-bold border border-gray-300">Isytihar Harta</td>
                                 <td class="p-2 border border-gray-300">
                                     @foreach($kakitangan->harta as $h)
-                                        {{ $h->tarikhisytihar }}, {{ $h->no_rujukan }}, {{ $h->jenisIsytihar->jenis ?? '' }} <br>
+                                        {{ $h->tarikhisytihar }}, {{ $h->no_rujukan }}, {{ $h->jenisIsytihar->jenis ?? '' }}
+                                        <br>
                                     @endforeach
                                 </td>
                             </tr>
@@ -96,7 +143,8 @@
                                 <td class="p-2 font-bold border border-gray-300">Pencapaian</td>
                                 <td class="p-2 border border-gray-300">
                                     @foreach($kakitangan->pencapaian as $p)
-                                        {{ $p->pencapaian }}, {{ $p->peringkatSumbangan->peringkat ?? '' }}, {{ $p->tarikhpencapaian }} <br>
+                                        {{ $p->pencapaian }}, {{ $p->peringkatSumbangan->peringkat ?? '' }},
+                                        {{ $p->tarikhpencapaian }} <br>
                                     @endforeach
                                 </td>
                             </tr>
