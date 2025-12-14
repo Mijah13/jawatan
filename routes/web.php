@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\PasswordController;
 use Illuminate\Support\Facades\Route;
 
 // New controllers
@@ -39,6 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Password Change
+    Route::get('/password', [PasswordController::class, 'edit'])->name('password.edit');
+    Route::put('/password', [PasswordController::class, 'updatePassword'])->name('password.update');
 
 
     // Keluarga
@@ -92,6 +97,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/surat_akuan/simpan', [SuratAkuanPerubatanController::class, 'store'])->name('surat_akuan.store');
 
     // Latihan
+    Route::match(['get', 'post'], '/latihan/senarai', [LatihanController::class, 'senarai'])->name('latihan.senarai');
     Route::resource('latihan', LatihanController::class);
 
     // =================================================
@@ -117,8 +123,41 @@ Route::middleware('auth')->group(function () {
         Route::get('/apc_pingat', [LaporanController::class, 'apc_pingat'])->name('apc_pingat');
     });
 
+    // Pentadbir - Penetapan (Settings) Routes
+    Route::prefix('pentadbir')->name('pentadbir.')->group(function () {
+        Route::match(['get', 'post'], '/peringkat-sumbangan', [PentadbirController::class, 'peringkatSumbangan'])->name('peringkat_sumbangan');
+        Route::match(['get', 'post'], '/program', [PentadbirController::class, 'program'])->name('program');
+        Route::match(['get', 'post'], '/unit', [PentadbirController::class, 'unit'])->name('unit');
+        Route::match(['get', 'post'], '/jenis-isytihar', [PentadbirController::class, 'jenisIsytihar'])->name('jenis_isytihar');
+        Route::match(['get', 'post'], '/jenis-penempatan', [PentadbirController::class, 'jenisPenempatan'])->name('jenis_penempatan');
+        Route::match(['get', 'post'], '/jawatan', [PentadbirController::class, 'jawatan'])->name('jawatan');
+        Route::match(['get', 'post'], '/gred', [PentadbirController::class, 'gred'])->name('gred');
+        Route::match(['get', 'post'], '/perjawatan', [PentadbirController::class, 'perjawatan'])->name('perjawatan');
+        Route::match(['get', 'post'], '/elaun', [PentadbirController::class, 'elaun'])->name('elaun');
+        Route::match(['get', 'post'], '/moto-hari-pekerja', [PentadbirController::class, 'motoHariPekerja'])->name('moto_hari_pekerja');
+
+        // Surat Pengesahan
+        Route::match(['get', 'post'], '/surat-pengesahan-cari', [PentadbirController::class, 'suratPengesahanCari'])->name('surat_pengesahan_cari');
+        Route::match(['get', 'post'], '/surat-pengesahan-pelulus', [PentadbirController::class, 'suratPengesahanPelulus'])->name('surat_pengesahan_pelulus');
+
+        // Surat Akuan Perubatan
+        Route::match(['get', 'post'], '/surat-akuan-senarai', [PentadbirController::class, 'suratAkuanSenarai'])->name('surat_akuan_senarai');
+        Route::match(['get', 'post'], '/surat-akuan-pelulus', [PentadbirController::class, 'suratAkuanPelulus'])->name('surat_akuan_pelulus');
+    });
+
     // Route::resource('laporan', LaporanController::class); // Removed as resource methods were removed
     Route::resource('pentadbir', PentadbirController::class);
+
+    // Bantuan (Help) Routes
+    Route::prefix('bantuan')->name('bantuan.')->group(function () {
+        Route::get('/tentang', [BantuanController::class, 'tentang'])->name('tentang');
+        Route::get('/manual', [BantuanController::class, 'manual'])->name('manual');
+        Route::get('/manual-permohonan-surat-pengesahan', [BantuanController::class, 'manualPermohonanSuratPengesahan'])->name('manual_permohonan_surat_pengesahan');
+        Route::get('/manual-pelulus-surat-pengesahan', [BantuanController::class, 'manualPelulusSuratPengesahan'])->name('manual_pelulus_surat_pengesahan');
+        Route::get('/manual-surat-akuan-perubatan', [BantuanController::class, 'manualSuratAkuanPerubatan'])->name('manual_surat_akuan_perubatan');
+        Route::get('/cadangan', [BantuanController::class, 'cadangan'])->name('cadangan');
+    });
+
     Route::resource('bantuan', BantuanController::class);
 });
 

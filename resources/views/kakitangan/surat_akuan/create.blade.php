@@ -45,7 +45,8 @@
                                     <option value="">Pilih Pesakit</option>
                                     @foreach($pesakit as $p)
                                         <option value="{{ $p->id }}" {{ old('pesakit') == $p->id ? 'selected' : '' }}>
-                                            {{ $p->nama }}</option>
+                                            {{ $p->nama }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -67,8 +68,9 @@
                         </div>
 
                         <div class="flex gap-2 mb-6">
-                            <button type="submit"
-                                class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+                            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md
+           hover:bg-blue-700 focus:outline-none
+           focus:ring-2 focus:ring-blue-500">
                                 Mohon
                             </button>
                             <a href="{{ route('surat_akuan.index') }}"

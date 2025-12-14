@@ -69,6 +69,44 @@ class LatihanController extends Controller
         return redirect()->route('latihan.index')->with('success', 'Latihan berjaya ditambah.');
     }
 
+    public function senarai(Request $request)
+    {
+        // Get distinct years from latihan table
+        $tahun_list = Latihan::selectRaw('DISTINCT YEAR(mula) as tahun')
+            ->orderBy('tahun', 'desc')
+            ->pluck('tahun');
+
+        // Get selected year from request, default to latest year
+        $selected_tahun = $request->input('tahun', $tahun_list->first());
+
+        // Fetch training records for selected year
+        $rows = [];
+        if ($selected_tahun) {
+            $rows = Latihan::select(
+                'latihan.id',
+                'latihan.tajuk',
+                'latihan.mula',
+                'latihan.tamat',
+                'latihan.tempoh',
+                'latihan.tempat',
+                'latihan.penganjur',
+                'kategori_latihan.kategori',
+                'jenis_latihan.jenis',
+                'kakitangan.nama',
+                'organisasi.kod'
+            )
+                ->leftJoin('kategori_latihan', 'kategori_latihan.id', '=', 'latihan.kategori')
+                ->leftJoin('jenis_latihan', 'jenis_latihan.id', '=', 'latihan.jenis')
+                ->leftJoin('kakitangan', 'kakitangan.id', '=', 'latihan.idkakitangan')
+                ->leftJoin('organisasi', 'organisasi.id', '=', 'kakitangan.penempatanoperasi')
+                ->whereRaw('YEAR(latihan.mula) = ?', [$selected_tahun])
+                ->orderBy('kakitangan.nama', 'asc')
+                ->get();
+        }
+
+        return view('latihan.senarai', compact('tahun_list', 'selected_tahun', 'rows'));
+    }
+
     public function destroy($id)
     {
         $latihan = Latihan::findOrFail($id);

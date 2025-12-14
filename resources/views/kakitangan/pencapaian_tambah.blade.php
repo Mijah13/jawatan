@@ -70,8 +70,9 @@
                             <tr>
                                 <td class="p-2"></td>
                                 <td class="p-2">
-                                    <button type="submit"
-                                        class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+                                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md
+           hover:bg-blue-700 focus:outline-none
+           focus:ring-2 focus:ring-blue-500">
                                         Submit
                                     </button>
                                 </td>
@@ -97,9 +98,11 @@
                                         <td class="p-2 text-center border border-gray-300">{{ $index + 1 }}</td>
                                         <td class="p-2 border border-gray-300">{{ $pencapaian->pencapaian }}</td>
                                         <td class="p-2 text-center border border-gray-300">
-                                            {{ $pencapaian->peringkatSumbangan->peringkat ?? '-' }}</td>
+                                            {{ $pencapaian->peringkatSumbangan->peringkat ?? '-' }}
+                                        </td>
                                         <td class="p-2 text-center border border-gray-300">
-                                            {{ $pencapaian->tarikhpencapaian->format('d/m/Y') }}</td>
+                                            {{ $pencapaian->tarikhpencapaian->format('d/m/Y') }}
+                                        </td>
                                         <td class="p-2 text-center border border-gray-300">
                                             -
                                         </td>

@@ -68,8 +68,9 @@
                             <tr>
                                 <td class="p-2"></td>
                                 <td class="p-2">
-                                    <button type="submit"
-                                        class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+                                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md
+           hover:bg-blue-700 focus:outline-none
+           focus:ring-2 focus:ring-blue-500">
                                         Submit
                                     </button>
                                 </td>
@@ -96,7 +97,8 @@
                                         <td class="p-2 border border-gray-300">{{ $harta->jenisIsytihar->jenis ?? '-' }}
                                         </td>
                                         <td class="p-2 text-center border border-gray-300">
-                                            {{ $harta->tarikhisytihar->format('d/m/Y') }}</td>
+                                            {{ $harta->tarikhisytihar->format('d/m/Y') }}
+                                        </td>
                                         <td class="p-2 border border-gray-300">{{ $harta->no_rujukan }}</td>
                                         <td class="p-2 text-center border border-gray-300">
                                             <!-- Actions (Edit/Delete) can be added here later -->

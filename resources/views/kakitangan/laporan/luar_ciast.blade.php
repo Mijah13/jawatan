@@ -10,14 +10,16 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="mb-4">
-                        <button onclick="window.print()"
-                            class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+                        <button onclick="window.print()" class="px-4 py-2 bg-blue-600 text-white rounded-md
+           hover:bg-blue-700 focus:outline-none
+           focus:ring-2 focus:ring-blue-500">
                             Cetak
                         </button>
                     </div>
 
                     <p class="mb-4">Laporan dikemaskini sehingga:
-                        <strong>{{ $tarikh ? \Carbon\Carbon::parse($tarikh)->format('Y-m-d') : '-' }}</strong></p>
+                        <strong>{{ $tarikh ? \Carbon\Carbon::parse($tarikh)->format('Y-m-d') : '-' }}</strong>
+                    </p>
 
                     <h3 class="mb-2 text-lg font-bold">Kedudukan Penempatan Kakitangan CIAST di Luar CIAST</h3>
                     <div class="mb-8 overflow-x-auto">

@@ -25,8 +25,9 @@
                     @endif
 
                     <div class="mb-6">
-                        <a href="{{ route('latihan.create') }}"
-                            class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+                        <a href="{{ route('latihan.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded-md
+           hover:bg-blue-700 focus:outline-none
+           focus:ring-2 focus:ring-blue-500">
                             Tambah Latihan
                         </a>
                     </div>
@@ -79,9 +80,11 @@
                                             <td class="p-2 border border-gray-300">{{ $l->nama_kategori }}</td>
                                             <td class="p-2 border border-gray-300">{{ $l->nama_jenis }}</td>
                                             <td class="p-2 border border-gray-300">
-                                                {{ $l->mula ? $l->mula->format('Y-m-d') : '' }}</td>
+                                                {{ $l->mula ? $l->mula->format('Y-m-d') : '' }}
+                                            </td>
                                             <td class="p-2 border border-gray-300">
-                                                {{ $l->tamat ? $l->tamat->format('Y-m-d') : '' }}</td>
+                                                {{ $l->tamat ? $l->tamat->format('Y-m-d') : '' }}
+                                            </td>
                                             <td class="p-2 border border-gray-300">{{ $l->tempoh }} hari</td>
                                             <td class="p-2 border border-gray-300">{{ $l->tempat }}</td>
                                             <td class="p-2 border border-gray-300">{{ $l->penganjur }}</td>

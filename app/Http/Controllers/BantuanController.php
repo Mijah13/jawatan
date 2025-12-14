@@ -63,4 +63,35 @@ class BantuanController extends Controller
         return redirect()->route('bantuan.index')
             ->with('success', 'Rekod bantuan berjaya dipadam!');
     }
+
+    // Help Pages
+    public function tentang()
+    {
+        return view('bantuan.tentang');
+    }
+
+    public function manual()
+    {
+        return view('bantuan.manual');
+    }
+
+    public function manualPermohonanSuratPengesahan()
+    {
+        return view('bantuan.manual_permohonan_surat_pengesahan');
+    }
+
+    public function manualPelulusSuratPengesahan()
+    {
+        return view('bantuan.manual_pelulus_surat_pengesahan');
+    }
+
+    public function manualSuratAkuanPerubatan()
+    {
+        return view('bantuan.manual_surat_akuan_perubatan');
+    }
+
+    public function cadangan()
+    {
+        return view('bantuan.cadangan');
+    }
 }

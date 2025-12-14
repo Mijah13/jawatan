@@ -11,19 +11,31 @@ use Illuminate\Validation\Rules\Password;
 class PasswordController extends Controller
 {
     /**
+     * Display the password change form.
+     */
+    public function edit(Request $request)
+    {
+        return view('password.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    /**
      * Update the user's password.
      */
-    public function update(Request $request): RedirectResponse
+    public function update(Request $request)
     {
-        $validated = $request->validateWithBag('updatePassword', [
-            'current_password' => ['required', 'current_password'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
+        $validated = $request->validate([
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
 
         $request->user()->update([
-            'password' => Hash::make($validated['password']),
+            'katalaluan' => $validated['password'],
+            //  'katalaluan' => Hash::make($validated['password']),
         ]);
 
-        return back()->with('status', 'password-updated');
+        return redirect()
+            ->route('dashboard')
+            ->with('success', 'Kata laluan berjaya dikemaskini!');
     }
 }

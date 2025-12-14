@@ -266,8 +266,9 @@
                         </div>
 
                         <div class="flex gap-2 mt-6">
-                            <button type="submit"
-                                class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+                            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md
+           hover:bg-blue-700 focus:outline-none
+           focus:ring-2 focus:ring-blue-500">
                                 Simpan
                             </button>
                             <a href="{{ route('kakitangan.index') }}"

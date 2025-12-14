@@ -46,7 +46,8 @@
                                     <option value="">Pilih Kategori</option>
                                     @foreach($kategori as $k)
                                         <option value="{{ $k->id }}" {{ old('kategori') == $k->id ? 'selected' : '' }}>
-                                            {{ $k->kategori }}</option>
+                                            {{ $k->kategori }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -60,7 +61,8 @@
                                     <option value="">Pilih Jenis</option>
                                     @foreach($jenis as $j)
                                         <option value="{{ $j->id }}" {{ old('jenis') == $j->id ? 'selected' : '' }}>
-                                            {{ $j->jenis }}</option>
+                                            {{ $j->jenis }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -108,8 +110,9 @@
                         </div>
 
                         <div class="flex gap-2 mb-6">
-                            <button type="submit"
-                                class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+                            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md
+           hover:bg-blue-700 focus:outline-none
+           focus:ring-2 focus:ring-blue-500">
                                 Tambah
                             </button>
                             <a href="{{ route('latihan.index') }}"

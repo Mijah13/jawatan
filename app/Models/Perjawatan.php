@@ -41,6 +41,29 @@ class Perjawatan extends Model
 		'bilanganperjawatan',
 		'tarikhkemaskini',
 		'penempatan',
-		'waran'
+		'waran',
+		'program',
+		'unit'
 	];
+
+	// Relationships
+	public function jawatanRel()
+	{
+		return $this->belongsTo(Jawatan::class, 'jawatan', 'id');
+	}
+
+	public function gredRel()
+	{
+		return $this->belongsTo(Gred::class, 'gred', 'id');
+	}
+
+	public function organisasiRel()
+	{
+		return $this->belongsTo(Organisasi::class, 'program', 'id');
+	}
+
+	public function unitRel()
+	{
+		return $this->belongsTo(Unit::class, 'unit', 'id');
+	}
 }
