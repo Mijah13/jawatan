@@ -85,6 +85,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/gaji', [GajiController::class, 'index'])->name('gaji.index');
     Route::get('/gaji/tambah', [GajiController::class, 'createGaji'])->name('gaji.create');
     Route::post('/gaji/simpan', [GajiController::class, 'storeGaji'])->name('gaji.store');
+    Route::put('/gaji/update/{id}', [GajiController::class, 'updateGaji'])->name('gaji.update');
+    Route::get('/gaji/gaji_edit/{id}', [GajiController::class, 'editGaji'])->name('gaji.gaji_edit');
     Route::get('/elaun/tambah', [GajiController::class, 'createElaun'])->name('elaun.create');
     Route::post('/elaun/simpan', [GajiController::class, 'storeElaun'])->name('elaun.store');
 

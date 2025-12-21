@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Tambah Maklumat Gaji') }}
+            {{ __('Edit Maklumat Gaji') }}
         </h2>
     </x-slot>
 
@@ -23,26 +23,26 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('gaji.store') }}"
-                        onsubmit="return confirm('Adakah anda ingin menambah data ini?');">
+                    <form method="POST" action="{{ route('gaji.update', $gaji->idkakitangan) }}"
+                        onsubmit="return confirm('Adakah anda ingin mengedit data ini?');">
                         @csrf
+                        @method('PUT')
 
                         <div class="grid grid-cols-1 gap-6">
 
                             <!-- Gaji Pokok -->
                             <div>
                                 <label class="block mb-2 font-bold text-gray-700">Gaji Pokok</label>
-                                <input type="number" step="0.01" name="gaji"
+                                <input type="number" step="0.01" name="gaji_pokok"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                                    value="{{ old('gaji') }}" required>
+                                    value="{{ $gaji->gaji_pokok }}" required>
                             </div>
-
                             <!-- Nombor Gaji -->
                             <div>
                                 <label class="block mb-2 font-bold text-gray-700">Nombor Gaji</label>
                                 <input type="text" name="no_gaji"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                                    value="{{ old('no_gaji') }}" required>
+                                    value="{{ $gaji->no_gaji }}" required>
                             </div>
 
 
@@ -52,15 +52,14 @@
                                 <label class="block mb-2 font-bold text-gray-700">Gred Gaji</label>
                                 <input type="text" name="gred_gaji"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                                    value="{{ old('gred_gaji') }}" required>
+                                    value="{{ $gaji->gred_gaji }}" required>
                             </div>
-
                         </div>
 
                         <div class="flex gap-2 mt-6">
                             <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md
-           hover:bg-blue-700 focus:outline-none
-           focus:ring-2 focus:ring-blue-500">
+                                        hover:bg-blue-700 focus:outline-none
+                                        focus:ring-2 focus:ring-blue-500">
                                 Submit
                             </button>
                             <a href="{{ route('gaji.index') }}"

@@ -62,4 +62,27 @@ class GajiController extends Controller
 
         return redirect()->route('gaji.index')->with('success', 'Elaun berjaya ditambah.');
     }
+    public function editGaji($id)
+    {
+        $gaji = GajiPokok::where('idkakitangan', $id)->first();
+        return view('kakitangan.gaji.gaji_edit', compact('gaji'));
+    }
+    public function updateGaji(Request $request, $id)
+    {
+        // $id passed here is idkakitangan
+        $gajiRecord = GajiPokok::where('idkakitangan', $id)->firstOrFail();
+
+        $request->validate([
+            'no_gaji' => 'required|string',
+            'gaji_pokok' => 'required',
+            'gred_gaji' => 'required|string',
+        ]);
+        $gajiRecord->update([
+            'no_gaji' => $request->no_gaji,
+            'gaji_pokok' => $request->gaji_pokok,
+            'gred_gaji' => $request->gred_gaji,
+        ]);
+
+        return redirect()->route('gaji.index')->with('success', 'Maklumat gaji berjaya diubah.');
+    }
 }

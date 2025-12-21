@@ -34,4 +34,9 @@ class ElaunDapat extends Model
 		'elaun',
 		'nilai'
 	];
+
+	public function elaunRelation()
+	{
+		return $this->belongsTo(Elaun::class, 'elaun', 'id');
+	}
 }

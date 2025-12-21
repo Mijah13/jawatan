@@ -30,7 +30,7 @@
                         </button>
 
                         <!-- Dropdown Menu -->
-                        <div x-show="open" x-transition
+                        <div x-show="open" x-transition style="display: none;"
                             class="absolute left-0 z-50 w-48 mt-2 bg-white rounded-md shadow-lg">
                             <!-- <a href="{{ route('kakitangan.index') }}" @click="open = false"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
@@ -85,7 +85,7 @@
                         </button>
 
                         <!-- ===== DROPDOWN UTAMA (MEGA MENU) ===== -->
-                        <div x-show="open" x-transition style="width: 300px;"
+                        <div x-show="open" x-transition style="width: 300px; display: none;"
                             class="absolute left-0 mt-2 bg-white rounded-md shadow-lg z-50 overflow-hidden ring-1 ring-black ring-opacity-5">
                             <div class="p-4 grid grid-cols-4 gap-4">
 
@@ -185,7 +185,7 @@
                         </button>
 
                         <!-- ===== DROPDOWN UTAMA (MEGA MENU) ===== -->
-                        <div x-show="open" x-transition style="width: 300px;"
+                        <div x-show="open" x-transition style="width: 300px; display: none;"
                             class="absolute left-0 mt-2 bg-white rounded-md shadow-lg z-50 overflow-hidden ring-1 ring-black ring-opacity-5">
                             <div class="p-4 grid grid-cols-4 gap-4">
 
@@ -294,7 +294,7 @@
 
                         <!-- Mega Menu -->
                         <div x-show="open" x-transition class="absolute left-0 z-50 mt-2 bg-white rounded-md shadow-lg"
-                            style="width: 300px;">
+                            style="width: 300px; display: none;">
                             <div class="p-6">
                                 <div class="grid grid-cols-2 gap-6">
                                     <!-- Left Column -->
@@ -422,7 +422,7 @@
 
     <!-- Responsive Navigation Menu -->
     <!-- Responsive Navigation Menu -->
-    <div x-show="open" class="sm:hidden">
+    <div x-show="open" class="sm:hidden" style="display: none;">
 
         <div class="pt-2 pb-3 space-y-2">
 
@@ -439,7 +439,7 @@
                     <span x-text="open ? '−' : '+'"></span>
                 </button>
 
-                <div x-show="open" class="pl-4 space-y-1">
+                <div x-show="open" class="pl-4 space-y-1" style="display: none;">
 
                     @if(auth()->user()->level == 1 || auth()->user()->level == 2 || auth()->user()->level == 3)
                         <a href="{{ route('kakitangan.carian') }}" class="block py-1 text-sm">
@@ -483,7 +483,7 @@
                     <span x-text="open ? '−' : '+'"></span>
                 </button>
 
-                <div x-show="open" class="pl-4 space-y-1">
+                <div x-show="open" class="pl-4 space-y-1" style="display: none;">
                     <a href="{{ route('laporan.pengisian_gred') }}" class="block py-1 text-sm">
                         Pengisian Jawatan Mengikut Gred
                     </a>
@@ -539,7 +539,7 @@
                         <span x-text="open ? '−' : '+'"></span>
                     </button>
 
-                    <div x-show="open" class="pl-4 space-y-1">
+                    <div x-show="open" class="pl-4 space-y-1" style="display: none;">
                         <a href="{{ route('pentadbir.peringkat_sumbangan') }}" class="block py-1 text-sm">Peringkat
                             Sumbangan</a>
                         <a href="{{ route('pentadbir.program') }}" class="block py-1 text-sm">Program</a>
@@ -576,7 +576,7 @@
                     <span x-text="open ? '−' : '+'"></span>
                 </button>
 
-                <div x-show="open" class="pl-4 space-y-1">
+                <div x-show="open" class="pl-4 space-y-1" style="display: none;">
                     <a href="{{ route('bantuan.tentang') }}" class="block py-1 text-sm">
                         Tentang ePerjawatan
                     </a>

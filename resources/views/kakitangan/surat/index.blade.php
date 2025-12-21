@@ -1,78 +1,119 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Surat Pengesahan dan Butir-Butir Perkhidmatan') }}
+        <h2 class="text-xl font-semibold text-gray-800">
+            Surat Pengesahan & Butir-Butir Perkhidmatan
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="py-8">
+        <div class="mt-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-                    @if(session('success'))
-                        <div class="p-4 mb-4 text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
-                            role="alert">
-                            <span class="font-medium">Berjaya!</span> {{ session('success') }}
-                        </div>
-                    @endif
+            <!-- Success Alert -->
+            @if(session('success'))
+                <div class="mb-6 rounded-lg bg-green-50 p-4 text-green-700 border border-green-200">
+                    <strong>Berjaya!</strong> {{ session('success') }}
+                </div>
+            @endif
 
-                    <ol class="mb-6 ml-6 list-decimal">
-                        <li><a href="{{ route('gaji.index') }}" class="text-blue-600 hover:underline">Kemaskini maklumat
-                                gaji</a></li>
-                        <li><a href="{{ route('taraf.edit') }}" class="text-blue-600 hover:underline">Kemaskini taraf
-                                perkhidmatan</a></li>
-                        <li><a href="https://epenyatagaji-laporan.anm.gov.my/Layouts/Login/Login.aspx" target="_blank"
-                                class="text-blue-600 hover:underline">Download Penyata Gaji</a></li>
-                        <li><a href="{{ route('surat.create') }}" class="text-blue-600 hover:underline">Permohonan
-                                baru</a></li>
-                    </ol>
+            <!-- Action Cards -->
+            <div class="grid grid-cols-1 gap-4 mb-8 sm:grid-cols-2 lg:grid-cols-4">
+                <a href="{{ route('gaji.index') }}" class="p-4 bg-white border rounded-lg hover:shadow transition">
+                    <p class="font-semibold text-gray-800">Kemaskini Gaji</p>
+                    <p class="text-sm text-gray-500">Maklumat gaji terkini</p>
+                </a>
 
-                    <h3 class="mb-4 text-lg font-bold">Senarai Permohonan dan Status</h3>
+                <a href="{{ route('taraf.edit') }}" class="p-4 bg-white border rounded-lg hover:shadow transition">
+                    <p class="font-semibold text-gray-800">Taraf Perkhidmatan</p>
+                    <p class="text-sm text-gray-500">Status perkhidmatan</p>
+                </a>
 
-                    @if($surat->count() > 0)
-                        <table class="w-full text-left border border-collapse border-gray-300">
-                            <thead>
-                                <tr class="bg-gray-100">
-                                    <th class="p-2 border border-gray-300">Bil</th>
-                                    <th class="p-2 border border-gray-300">Kepada</th>
-                                    <th class="p-2 border border-gray-300">Tarikh Mohon</th>
-                                    <th class="p-2 border border-gray-300">Status</th>
-                                    <th class="p-2 border border-gray-300">Tarikh Sah</th>
-                                    <th class="p-2 border border-gray-300">No Rujukan</th>
-                                    <th class="p-2 border border-gray-300">Tindakan</th>
+                <a href="https://epenyatagaji-laporan.anm.gov.my/Layouts/Login/Login.aspx" target="_blank"
+                    class="p-4 bg-white border rounded-lg hover:shadow transition">
+                    <p class="font-semibold text-gray-800">Penyata Gaji</p>
+                    <p class="text-sm text-gray-500">Download penyata</p>
+                </a>
+
+                <a href="{{ route('surat.create') }}" class="p-4 bg-white border rounded-lg hover:shadow transition">
+                    <p class="font-semibold text-gray-800">Permohonan Baru</p>
+                    <p class="text-sm text-gray-500">Mohon surat pengesahan</p>
+                </a>
+            </div>
+
+            <!-- Content Card -->
+            <div class="bg-white shadow-sm rounded-lg p-6">
+
+                <h3 class="mb-4 text-lg font-semibold text-gray-800">
+                    Senarai Permohonan & Status
+                </h3>
+
+                @if($surat->count() > 0)
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full border border-gray-200 text-sm">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="p-3 border">Bil</th>
+                                    <th class="p-3 border">Kepada</th>
+                                    <th class="p-3 border">Tarikh Mohon</th>
+                                    <th class="p-3 border">Status</th>
+                                    <th class="p-3 border">Tarikh Sah</th>
+                                    <th class="p-3 border">No Rujukan</th>
+                                    <th class="p-3 border text-center">Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($surat as $index => $s)
-                                    <tr>
-                                        <td class="p-2 border border-gray-300">{{ $index + 1 }}</td>
-                                        <td class="p-2 border border-gray-300">{{ $s->kepada }}</td>
-                                        <td class="p-2 border border-gray-300">
-                                            {{ $s->tarikhmohon ? $s->tarikhmohon->format('Y-m-d') : '' }}
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="p-3 border">{{ $index + 1 }}</td>
+                                        <td class="p-3 border">{{ $s->kepada }}</td>
+                                        <td class="p-3 border">
+                                            {{ optional($s->tarikhmohon)->format('d/m/Y') }}
                                         </td>
-                                        <td class="p-2 border border-gray-300">
-                                            {{ $s->status == 1 ? 'Telah Selesai' : 'Belum Selesai' }}
+                                        <td class="p-3 border">
+                                            @if($s->status == 1)
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded">
+                                                    Telah Selesai
+                                                </span>
+                                            @else
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-yellow-700 bg-yellow-100 rounded">
+                                                    Belum Selesai
+                                                </span>
+                                            @endif
                                         </td>
-                                        <td class="p-2 border border-gray-300">
-                                            {{ $s->tarikh_sah ? $s->tarikh_sah->format('Y-m-d') : '' }}
+                                        <td class="p-3 border">
+                                            {{ optional($s->tarikh_sah)->format('d/m/Y') }}
                                         </td>
-                                        <td class="p-2 border border-gray-300">{{ $s->fail }} ({{ $s->id }})</td>
-                                        <td class="p-2 border border-gray-300">
-                                            <a href="#" class="text-blue-600 hover:underline">Cetak</a>
+                                        <td class="p-3 border">
+                                            {{ $s->fail }} ({{ $s->id }})
+                                        </td>
+                                        <td class="p-3 border text-center space-x-2">
+                                            <a href="#" class="text-indigo-600 hover:underline text-sm">
+                                                Cetak
+                                            </a>
                                             @if($s->status != 1)
-                                                | <a href="#" class="text-blue-600 hover:underline">Edit</a>
+                                                <a href="#" class="text-gray-600 hover:underline text-sm">
+                                                    Edit
+                                                </a>
                                             @endif
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                    @else
-                        <p>Tiada permohonan</p>
-                    @endif
+                    </div>
+                @else
+                    <!-- Empty State -->
+                    <div class="py-12 text-center text-gray-500">
+                        <p class="text-lg font-medium">Tiada Permohonan</p>
+                        <p class="text-sm mb-4">Anda belum membuat sebarang permohonan surat.</p>
+                        <a href="{{ route('surat.create') }}"
+                            class="inline-block px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                            Buat Permohonan Baru
+                        </a>
+                    </div>
+                @endif
 
-                </div>
             </div>
         </div>
     </div>

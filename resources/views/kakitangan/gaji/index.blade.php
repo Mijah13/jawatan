@@ -1,98 +1,146 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Gaji') }}
+        <h2 class="text-xl font-semibold text-gray-800">
+            Gaji
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
 
-                    <h3 class="mb-4 text-lg font-bold">Gaji Pokok</h3>
-                    <table class="w-1/2 mb-6 border border-collapse border-gray-300">
-                        <tr>
-                            <td class="w-1/3 p-2 border border-gray-300">Gaji Pokok</td>
-                            <td class="p-2 font-bold border border-gray-300">
-                                @if($gaji)
-                                    {{ $gaji->gaji_pokok }}
-                                @else
-                                    Belum ada Data
-                                @endif
-                            </td>
-                            <td class="p-2 border border-gray-300">
-                                @if(!$gaji)
-                                    <a href="{{ route('surat.index') }}" class="text-blue-600 hover:underline">Tambah</a>
-                                @else
-                                    <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300">Nombor Gaji</td>
-                            <td class="p-2 font-bold border border-gray-300">{{ $gaji->no_gaji ?? '' }}</td>
-                            <td class="p-2 border border-gray-300"></td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300">Gred Gaji</td>
-                            <td class="p-2 font-bold border border-gray-300">{{ $gaji->gred_gaji ?? '' }}</td>
-                            <td class="p-2 border border-gray-300"></td>
-                        </tr>
-                    </table>
+            <!-- Gaji Pokok -->
+            <div class="mb-8 bg-white shadow-sm rounded-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">Gaji Pokok</h3>
 
-                    <h3 class="mb-4 text-lg font-bold">Elaun</h3>
-                    @if($elaun->count() > 0)
-                        <table class="w-full text-left border border-collapse border-gray-300">
-                            <thead>
-                                <tr class="bg-gray-100">
-                                    <th class="p-2 border border-gray-300">Bil</th>
-                                    <th class="p-2 border border-gray-300">Elaun Tetap</th>
-                                    <th class="p-2 border border-gray-300">RM</th>
-                                    <th class="p-2 border border-gray-300">Tindakan</th>
+                    @if(!$gaji)
+                        <a href="{{ route('gaji.create') }}"
+                            class="inline-flex items-center px-4 py-2 text-sm font-semibold text-black
+                                                                  bg-indigo-600 rounded-md shadow
+                                                                  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            Tambah
+                        </a>
+                    @else
+                        <a href="{{ route('gaji.gaji_edit', $gaji->idkakitangan) }}" class="inline-flex items-center px-4 py-2 text-sm font-semibold
+                                                                  text-indigo-600 border border-indigo-600 rounded-md
+                                                                  hover:bg-indigo-50">
+                            Edit
+                        </a>
+                    @endif
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                    <div>
+                        <p class="text-sm text-gray-500">Gaji Pokok</p>
+                        <p class="font-semibold">{{ $gaji->gaji_pokok ?? 'Belum ada data' }}</p>
+                    </div>
+
+                    <div>
+                        <p class="text-sm text-gray-500">Nombor Gaji</p>
+                        <p class="font-semibold">{{ $gaji->no_gaji ?? '-' }}</p>
+                    </div>
+
+                    <div>
+                        <p class="text-sm text-gray-500">Gred Gaji</p>
+                        <p class="font-semibold">{{ $gaji->gred_gaji ?? '-' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Elaun -->
+            <div class="bg-white shadow-sm rounded-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">Elaun</h3>
+
+                    <a href="{{ route('elaun.create') }}" class="inline-flex items-center px-4 py-2 text-sm font-semibold text-black
+                              bg-indigo-600 rounded-md shadow
+                              hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        Tambah Elaun
+                    </a>
+                </div>
+
+                @if($elaun->count() > 0)
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+
+                            <thead class="bg-gray-100 text-gray-700">
+                                <tr>
+                                    <th class="p-3 text-center border">Bil</th>
+                                    <th class="p-3 text-left border">Elaun Tetap</th>
+                                    <th class="p-3 text-right border">Jumlah (RM)</th>
+                                    <th class="p-3 text-center border">Tindakan</th>
                                 </tr>
                             </thead>
-                            <tbody>
+
+                            <tbody class="bg-white">
                                 @php $total = 0; @endphp
+
                                 @foreach($elaun as $index => $e)
-                                    <tr>
-                                        <td class="p-2 border border-gray-300">{{ $index + 1 }}</td>
-                                        <td class="p-2 border border-gray-300">{{ $e->elaunRelation->nama ?? '' }}</td>
-                                        <td class="p-2 border border-gray-300">
-                                            {{ $e->nilai }}
+                                    <tr class="odd:bg-white even:bg-gray-50 hover:bg-indigo-50">
+                                        <td class="p-3 text-center border">
+                                            {{ $index + 1 }}
+                                        </td>
+
+                                        <td class="p-3 border">
+                                            {{ $e->elaunRelation->nama ?? '-' }}
+                                        </td>
+
+                                        <td class="p-3 text-right border font-medium">
+                                            {{ number_format($e->nilai, 2) }}
                                             @php $total += $e->nilai; @endphp
                                         </td>
-                                        <td class="p-2 border border-gray-300">
-                                            <a href="#" class="text-blue-600 hover:underline">Edit</a> |
-                                            <a href="#" class="text-red-600 hover:underline">Delete</a>
+
+                                        <td class="p-3 text-center border space-x-2">
+                                            <a href="#" class="inline-block px-3 py-1 text-xs font-semibold text-indigo-600
+                                                                   border border-indigo-600 rounded hover:bg-indigo-50">
+                                                Edit
+                                            </a>
+
+                                            <a href="#" class="inline-block px-3 py-1 text-xs font-semibold text-red-600
+                                                                   border border-red-600 rounded hover:bg-red-50">
+                                                Padam
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
-                                <tr class="font-bold bg-gray-100">
-                                    <td class="p-2 border border-gray-300"></td>
-                                    <td class="p-2 text-right border border-gray-300">Jumlah Elaun</td>
-                                    <td class="p-2 border border-gray-300">{{ $total }}</td>
-                                    <td class="p-2 border border-gray-300"></td>
-                                </tr>
                             </tbody>
-                        </table>
-                    @else
-                        <p class="mb-4">Belum ada data</p>
-                    @endif
 
-                    <div class="mt-4">
-                        <a href="{{ route('elaun.create') }}" class="text-blue-600 hover:underline">Tambah Elaun</a>
+                            <!-- Total -->
+                            <tfoot>
+                                <tr class="bg-gray-100 font-semibold">
+                                    <td colspan="2" class="p-3 text-right border">
+                                        Jumlah Elaun
+                                    </td>
+                                    <td class="p-3 text-right border text-indigo-700">
+                                        {{ number_format($total, 2) }}
+                                    </td>
+                                    <td class="p-3 border"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
 
-                    <div class="mt-6">
-                        <a href="{{ route('surat.index') }}"
-                            class="px-4 py-2 font-bold text-white bg-gray-500 rounded hover:bg-gray-700">
-                            Kembali
+                @else
+                    <!-- Empty state -->
+                    <div class="py-10 text-center text-gray-500">
+                        <p class="mb-2 font-medium">Belum ada elaun direkodkan</p>
+                        <a href="{{ route('elaun.create') }}"
+                            class="inline-block px-4 py-2 text-white bg-indigo-600 rounded hover:bg-indigo-700">
+                            Tambah Elaun
                         </a>
                     </div>
-
-                </div>
+                @endif
             </div>
+
+            <!-- Back -->
+            <div class="mt-6">
+                <a href="{{ route('surat.index') }}" class="inline-flex items-center px-4 py-2 text-sm font-semibold
+              text-gray-700 bg-gray-200 rounded-md
+              hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                    Kembali
+                </a>
+            </div>
+
         </div>
     </div>
 </x-app-layout>
