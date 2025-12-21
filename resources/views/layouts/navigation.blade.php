@@ -421,82 +421,209 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+    <!-- Responsive Navigation Menu -->
+    <div x-show="open" class="sm:hidden">
+
+        <div class="pt-2 pb-3 space-y-2">
+
+            <!-- Home -->
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
 
-            <!-- Mobile Submenu for Maklumat Kakitangan -->
-            <div class="px-3 py-2 pt-2 pb-3">
-                <div class="mb-2 text-sm font-medium text-gray-600">Maklumat Kakitangan</div>
-                <div class="pl-4 space-y-1">
-                    <a href="{{ route('kakitangan.index') }}"
-                        class="block px-3 py-2 text-sm text-gray-600 rounded hover:text-gray-900 hover:bg-gray-50">
-                        Maklumat Peribadi
-                    </a>
+            <!-- ================= Maklumat Kakitangan ================= -->
+            <div x-data="{ open:false }" class="px-4">
+                <button @click="open=!open"
+                    class="flex justify-between w-full py-2 text-sm font-semibold text-gray-700">
+                    Maklumat Kakitangan
+                    <span x-text="open ? '−' : '+'"></span>
+                </button>
+
+                <div x-show="open" class="pl-4 space-y-1">
+
                     @if(auth()->user()->level == 1 || auth()->user()->level == 2 || auth()->user()->level == 3)
-                        <a href="{{ route('kakitangan.index') }}"
-                            class="block px-3 py-2 text-sm text-gray-600 rounded hover:text-gray-900 hover:bg-gray-50">
+                        <a href="{{ route('kakitangan.carian') }}" class="block py-1 text-sm">
                             Maklumat Kakitangan
                         </a>
                     @endif
+
                     @if(auth()->user()->level == 1 || auth()->user()->level == 2)
-                        <a href="{{ route('kakitangan.create') }}"
-                            class="block px-3 py-2 text-sm text-gray-600 rounded hover:text-gray-900 hover:bg-gray-50">
+                        <a href="{{ route('kakitangan.create') }}" class="block py-1 text-sm">
                             Tambah Maklumat
                         </a>
                     @endif
-                    <a href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 rounded hover:text-gray-900 hover:bg-gray-50">
+
+                    <a href="{{ route('surat.index') }}" class="block py-1 text-sm">
                         Surat Pengesahan
                     </a>
-                    <a href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 rounded hover:text-gray-900 hover:bg-gray-50">
+
+                    <a href="{{ route('gaji.index') }}" class="block py-1 text-sm">
                         Maklumat Gaji
                     </a>
-                    <a href="{{ route('keluarga.index') }}"
-                        class="block px-3 py-2 text-sm text-gray-600 rounded hover:text-gray-900 hover:bg-gray-50">
+
+                    <a href="{{ route('keluarga.index') }}" class="block py-1 text-sm">
                         Keluarga
                     </a>
-                    <a href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 rounded hover:text-gray-900 hover:bg-gray-50">
+
+                    <a href="{{ route('surat_akuan.index') }}" class="block py-1 text-sm">
                         Surat Akuan Perubatan
                     </a>
-                    <a href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 rounded hover:text-gray-900 hover:bg-gray-50">
+
+                    <a href="{{ route('latihan.index') }}" class="block py-1 text-sm">
                         Latihan
+                    </a>
+                </div>
+            </div>
+
+            <!-- ================= Laporan ================= -->
+            <div x-data="{ open:false }" class="px-4">
+                <button @click="open=!open"
+                    class="flex justify-between w-full py-2 text-sm font-semibold text-gray-700">
+                    Laporan
+                    <span x-text="open ? '−' : '+'"></span>
+                </button>
+
+                <div x-show="open" class="pl-4 space-y-1">
+                    <a href="{{ route('laporan.pengisian_gred') }}" class="block py-1 text-sm">
+                        Pengisian Jawatan Mengikut Gred
+                    </a>
+                    <a href="{{ route('laporan.teknikal') }}" class="block py-1 text-sm">
+                        Pengisian Jawatan Teknikal
+                    </a>
+                    <a href="{{ route('laporan.lantikan') }}" class="block py-1 text-sm">
+                        Maklumat Lantikan Penyandang
+                    </a>
+                    <a href="{{ route('laporan.senarai_perjawatan') }}" class="block py-1 text-sm">
+                        Senarai Nama & Perjawatan
+                    </a>
+                    <a href="{{ route('laporan.penempatan') }}" class="block py-1 text-sm">
+                        Penempatan Kakitangan
+                    </a>
+                    <a href="{{ route('laporan.luar_ciast') }}" class="block py-1 text-sm">
+                        Kakitangan Luar CIAST
+                    </a>
+                    <a href="{{ route('laporan.sambilan') }}" class="block py-1 text-sm">
+                        Kakitangan Sambilan
+                    </a>
+                    <a href="{{ route('laporan.statistik') }}" class="block py-1 text-sm">
+                        Statistik Kakitangan
+                    </a>
+                    <a href="{{ route('laporan.bersara') }}" class="block py-1 text-sm">
+                        Kakitangan Bersara
+                    </a>
+                    <a href="{{ route('laporan.baru') }}" class="block py-1 text-sm">
+                        Kakitangan Baru
+                    </a>
+                    <a href="{{ route('laporan.bertukar') }}" class="block py-1 text-sm">
+                        Kakitangan Bertukar
+                    </a>
+                    <a href="{{ route('laporan.apc_pingat') }}" class="block py-1 text-sm">
+                        Senarai APC & Pingat
+                    </a>
+
+                    <hr class="my-2">
+
+                    <p class="text-xs font-semibold text-gray-500">Latihan</p>
+                    <a href="{{ route('latihan.senarai') }}" class="block py-1 text-sm">
+                        Senarai Latihan
+                    </a>
+                </div>
+            </div>
+
+            <!-- ================= Pentadbir Sistem ================= -->
+            @if(auth()->user()->level == 1 || auth()->user()->level == 2)
+                <div x-data="{ open:false }" class="px-4">
+                    <button @click="open=!open"
+                        class="flex justify-between w-full py-2 text-sm font-semibold text-gray-700">
+                        Pentadbir Sistem
+                        <span x-text="open ? '−' : '+'"></span>
+                    </button>
+
+                    <div x-show="open" class="pl-4 space-y-1">
+                        <a href="{{ route('pentadbir.peringkat_sumbangan') }}" class="block py-1 text-sm">Peringkat
+                            Sumbangan</a>
+                        <a href="{{ route('pentadbir.program') }}" class="block py-1 text-sm">Program</a>
+                        <a href="{{ route('pentadbir.unit') }}" class="block py-1 text-sm">Unit</a>
+                        <a href="{{ route('pentadbir.jenis_isytihar') }}" class="block py-1 text-sm">Jenis Isytihar
+                            Harta</a>
+                        <a href="{{ route('pentadbir.jenis_penempatan') }}" class="block py-1 text-sm">Jenis Penempatan</a>
+                        <a href="{{ route('pentadbir.jawatan') }}" class="block py-1 text-sm">Jawatan</a>
+                        <a href="{{ route('pentadbir.gred') }}" class="block py-1 text-sm">Gred</a>
+                        <a href="{{ route('pentadbir.perjawatan') }}" class="block py-1 text-sm">Perjawatan</a>
+                        <a href="{{ route('pentadbir.elaun') }}" class="block py-1 text-sm">Elaun</a>
+                        <a href="{{ route('pentadbir.moto_hari_pekerja') }}" class="block py-1 text-sm">Moto Hari
+                            Pekerja</a>
+
+                        <hr class="my-2">
+
+                        <p class="text-xs font-semibold text-gray-500">Surat Pengesahan</p>
+                        <a href="{{ route('pentadbir.surat_pengesahan_cari') }}" class="block py-1 text-sm">Cari Pemohon</a>
+                        <a href="{{ route('pentadbir.surat_pengesahan_pelulus') }}" class="block py-1 text-sm">Pelulus</a>
+
+                        <p class="text-xs font-semibold text-gray-500 mt-2">Surat Akuan Perubatan</p>
+                        <a href="{{ route('pentadbir.surat_akuan_senarai') }}" class="block py-1 text-sm">Senarai
+                            Pemohon</a>
+                        <a href="{{ route('pentadbir.surat_akuan_pelulus') }}" class="block py-1 text-sm">Pelulus</a>
+                    </div>
+                </div>
+            @endif
+
+            <!-- ================= Bantuan ================= -->
+            <div x-data="{ open:false }" class="px-4">
+                <button @click="open=!open"
+                    class="flex justify-between w-full py-2 text-sm font-semibold text-gray-700">
+                    Bantuan
+                    <span x-text="open ? '−' : '+'"></span>
+                </button>
+
+                <div x-show="open" class="pl-4 space-y-1">
+                    <a href="{{ route('bantuan.tentang') }}" class="block py-1 text-sm">
+                        Tentang ePerjawatan
+                    </a>
+
+                    @if(auth()->user()->level == 1 || auth()->user()->level == 2)
+                        <a href="{{ route('bantuan.manual') }}" class="block py-1 text-sm">
+                            Manual Pengguna
+                        </a>
+                    @endif
+
+                    <p class="text-xs font-semibold text-gray-500 mt-2">Panduan Surat</p>
+                    <a href="{{ route('bantuan.manual_permohonan_surat_pengesahan') }}" class="block py-1 text-sm">
+                        Surat Pengesahan – Permohonan
+                    </a>
+                    <a href="{{ route('bantuan.manual_pelulus_surat_pengesahan') }}" class="block py-1 text-sm">
+                        Surat Pengesahan – Pelulus
+                    </a>
+                    <a href="{{ route('bantuan.manual_surat_akuan_perubatan') }}" class="block py-1 text-sm">
+                        Surat Akuan Perubatan
                     </a>
                 </div>
             </div>
 
         </div>
 
-        <!-- Responsive Settings Options -->
+        <!-- User -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
-                <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
+                <div class="text-base font-medium text-gray-800">{{ Auth::user()->nama }}</div>
                 <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="url('/kakitangan')">Profil</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('password.edit')">Tukar Kata Laluan</x-responsive-nav-link>
 
-                <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
-                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                    <x-responsive-nav-link :href="route('logout')"
+                        onclick="event.preventDefault();this.closest('form').submit();">
+                        Log Out
                     </x-responsive-nav-link>
                 </form>
             </div>
         </div>
+
     </div>
+
+
 </nav>
