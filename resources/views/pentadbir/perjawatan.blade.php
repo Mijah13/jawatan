@@ -48,30 +48,22 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="bg-yellow-50 p-4 rounded-md">
-                                <label for="program"
-                                    class="block text-sm font-medium text-gray-700 mb-2">Program</label>
-                                <select name="program" id="program" required
+                            <div>
+                                <label for="bilanganperjawatan"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Bilangan Perjawatan</label>
+                                <input type="text" name="bilanganperjawatan" id="bilanganperjawatan" maxlength="200"
+                                    required
                                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                    <option value="">-- Pilih Program --</option>
-                                    @foreach($program_list as $p)
-                                        <option value="{{ $p->id }}">{{ $p->program }}</option>
-                                    @endforeach
-                                </select>
-                                @error('program')
+                                @error('bilanganperjawatan')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
-                                <label for="unit" class="block text-sm font-medium text-gray-700 mb-2">Unit</label>
-                                <select name="unit" id="unit" required
+                                <label for="waran" class="block text-sm font-medium text-gray-700 mb-2">Kod
+                                    Waran</label>
+                                <input type="text" name="waran" id="waran" maxlength="200" required
                                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                    <option value="">-- Pilih Unit --</option>
-                                    @foreach($unit_list as $u)
-                                        <option value="{{ $u->id }}">{{ $u->unit }}</option>
-                                    @endforeach
-                                </select>
-                                @error('unit')
+                                @error('waran')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -105,11 +97,11 @@
                                         </th>
                                         <th scope="col"
                                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Program
+                                            Kod Waran
                                         </th>
                                         <th scope="col"
                                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Unit
+                                            Bilangan Perjawatan
                                         </th>
                                         <th scope="col"
                                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
@@ -130,15 +122,23 @@
                                                 {{ $row->gredRel->gred ?? '-' }}
                                             </td>
                                             <td class="px-6 py-4 text-sm text-gray-900">
-                                                {{ $row->organisasiRel->program ?? '-' }}
+                                                {{ $row->kod_waran ?? '-' }}
                                             </td>
                                             <td class="px-6 py-4 text-sm text-gray-900">
-                                                {{ $row->unitRel->unit ?? '-' }}
+                                                {{ $row->bilanganperjawatan ?? '-' }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <a href="{{ route('pentadbir.perjawatan.edit', $row->id) }}"
+                                                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                                 <span class="text-gray-300">|</span>
-                                                <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+                                                <form action="{{ route('pentadbir.perjawatan.destroy', $row->id) }}"
+                                                    method="POST" class="inline"
+                                                    onsubmit="return confirm('Adakah anda pasti?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="text-red-600 hover:text-red-900">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

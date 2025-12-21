@@ -10,9 +10,7 @@ class SuratPengesahanPelulus extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'idpelulus',
-        'pengguna',
+        'idkakitangan',
         'tarikh',
-        'kemaskini',
     ];
 }

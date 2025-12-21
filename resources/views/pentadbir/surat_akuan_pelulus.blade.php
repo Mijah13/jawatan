@@ -22,16 +22,16 @@
                         @csrf
                         <div class="space-y-4">
                             <div>
-                                <label for="idpelulus" class="block text-sm font-medium text-gray-700 mb-2">Pegawai
+                                <label for="idkakitangan" class="block text-sm font-medium text-gray-700 mb-2">Pegawai
                                     CIAST</label>
-                                <select name="idpelulus" id="idpelulus" required
+                                <select name="idkakitangan" id="idkakitangan" required
                                     class="w-full md:w-2/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                     <option value="">Pilih Kakitangan</option>
                                     @foreach($kakitangan_list as $k)
                                         <option value="{{ $k->id }}">{{ $k->nama }}</option>
                                     @endforeach
                                 </select>
-                                @error('idpelulus')
+                                @error('idkakitangan')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -45,8 +45,9 @@
                                 @enderror
                             </div>
                             <div>
-                                <button type="submit"
-                                    class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <button type="submit" class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md
+                                hover:bg-blue-700 focus:outline-none
+                                focus:ring-2 focus:ring-blue-500">
                                     Submit
                                 </button>
                             </div>
@@ -73,6 +74,10 @@
                                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
                                             Tarikh Mula
                                         </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
+                                            Tindakan
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
@@ -86,6 +91,19 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                                                 {{ \Carbon\Carbon::parse($row->tarikh)->format('d/m/Y') }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
+                                                <a href="{{ route('pentadbir.surat_akuan_pelulus.edit', $row->id) }}"
+                                                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <span class="text-gray-300">|</span>
+                                                <form action="{{ route('pentadbir.surat_akuan_pelulus.destroy', $row->id) }}"
+                                                    method="POST" class="inline"
+                                                    onsubmit="return confirm('Adakah anda pasti?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="text-red-600 hover:text-red-900">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

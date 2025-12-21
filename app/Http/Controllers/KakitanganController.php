@@ -42,6 +42,7 @@ class KakitanganController extends Controller
             'unitRelation',
             'kodPenempatanRelation'
         ])->where('id', $id)->firstOrFail();
+
         return view('kakitangan.display', compact('kakitangan'));
     }
 
@@ -252,6 +253,14 @@ class KakitanganController extends Controller
 
         return redirect()->route('kakitangan.edit', $row->id)
             ->with('success', 'Maklumat kakitangan berjaya dikemaskini.');
+    }
+
+    public function reset($id)
+    {
+        $row = Kakitangan::find($id);
+        $row->katalaluan = '1234';
+        $row->save();
+        return back();
     }
 
     public function destroy($id)

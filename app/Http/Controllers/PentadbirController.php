@@ -382,23 +382,26 @@ class PentadbirController extends Controller
     public function perjawatanEdit($id)
     {
         $item = Perjawatan::findOrFail($id);
-        return view('pentadbir.perjawatan_edit', compact('item'));
+        $jawatan_list = Jawatan::orderBy('jawatan', 'asc')->get();
+        $gred_list = Gred::orderBy('keutamaan', 'desc')->get();
+
+        return view('pentadbir.perjawatan_edit', compact('item', 'jawatan_list', 'gred_list'));
     }
     public function perjawatanUpdate(Request $request, $id)
     {
         $request->validate([
             'jawatan' => 'required|integer',
             'gred' => 'required|integer',
-            'program' => 'required|integer',
-            'unit' => 'required|integer',
+            'waran' => 'required|string|max:50',
+            'bilanganperjawatan' => 'required|integer',
         ]);
 
         $item = Perjawatan::findOrFail($id);
         $item->update([
             'jawatan' => $request->jawatan,
             'gred' => $request->gred,
-            'program' => $request->program,
-            'unit' => $request->unit,
+            'waran' => $request->waran,
+            'bilanganperjawatan' => $request->bilanganperjawatan,
         ]);
 
         return redirect()->route('pentadbir.perjawatan')
@@ -417,30 +420,28 @@ class PentadbirController extends Controller
             $request->validate([
                 'jawatan' => 'required|integer',
                 'gred' => 'required|integer',
-                'program' => 'required|integer',
-                'unit' => 'required|integer',
+                'waran' => 'required|string|max:50',
+                'bilanganperjawatan' => 'required|integer',
             ]);
 
             Perjawatan::create([
                 'jawatan' => $request->jawatan,
                 'gred' => $request->gred,
-                'program' => $request->program,
-                'unit' => $request->unit,
+                'waran' => $request->waran,
+                'bilanganperjawatan' => $request->bilanganperjawatan,
             ]);
 
             return redirect()->route('pentadbir.perjawatan')
                 ->with('success', 'Perjawatan berjaya ditambah!');
         }
 
-        $rows = Perjawatan::with(['jawatanRel', 'gredRel', 'organisasiRel', 'unitRel'])
+        $rows = Perjawatan::with(['jawatanRel', 'gredRel'])
             ->orderBy('id', 'asc')
             ->get();
         $jawatan_list = Jawatan::orderBy('jawatan', 'asc')->get();
         $gred_list = Gred::orderBy('keutamaan', 'desc')->get();
-        $program_list = Organisasi::orderBy('program', 'asc')->get();
-        $unit_list = Unit::orderBy('unit', 'asc')->get();
 
-        return view('pentadbir.perjawatan', compact('rows', 'jawatan_list', 'gred_list', 'program_list', 'unit_list'));
+        return view('pentadbir.perjawatan', compact('rows', 'jawatan_list', 'gred_list', ));
     }
 
     public function elaunEdit($id)
@@ -598,6 +599,49 @@ class PentadbirController extends Controller
     // SURAT AKUAN PERUBATAN METHODS
     // ========================================
 
+    public function suratAkuanSenaraiEdit($id)
+    {
+        $item = \App\Models\SuratAkuanPerubatan::select(
+            'surat_akuan_perubatan.id',
+            'surat_akuan_perubatan.hospital',
+            'surat_akuan_perubatan.no_rujukan',
+            'kakitangan.nama as namakakitangan',
+            'keluarga.nama as pesakit'
+        )
+            ->leftJoin('kakitangan', 'kakitangan.id', '=', 'surat_akuan_perubatan.idkakitangan')
+            ->leftJoin('keluarga', 'keluarga.id', '=', 'surat_akuan_perubatan.pesakit')
+            ->orderBy('kakitangan.nama', 'asc')
+            ->where('surat_akuan_perubatan.id', $id)
+            ->firstOrFail();
+
+        // dd($item);
+
+
+        return view('pentadbir.surat_akuan_senarai_edit', compact('item'));
+    }
+    public function suratAkuanSenaraiUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'no_rujukan' => 'required|string|max:255',
+        ]);
+
+        $item = \App\Models\SuratAkuanPerubatan::findOrFail($id);
+        $item->update([
+            'no_rujukan' => $request->no_rujukan,
+        ]);
+
+        return redirect()->route('pentadbir.surat_akuan_senarai')
+            ->with('success', 'Surat akuan perubatan berjaya dikemaskini!');
+    }
+
+    public function suratAkuanSenaraiDestroy($id)
+    {
+        \App\Models\SuratAkuanPerubatan::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.surat_akuan_senarai')
+            ->with('success', 'Surat akuan perubatan berjaya dipadam!');
+    }
+
     public function suratAkuanSenarai(Request $request)
     {
         $rows = \App\Models\SuratAkuanPerubatan::select(
@@ -615,17 +659,47 @@ class PentadbirController extends Controller
         return view('pentadbir.surat_akuan_senarai', compact('rows'));
     }
 
+    public function suratAkuanPelulusEdit($id)
+    {
+        $item = \App\Models\SuratAkuanPerubatanPelulus::findOrFail($id);
+        $kakitangan_list = \App\Models\Kakitangan::orderBy('nama', 'asc')->get();
+
+        return view('pentadbir.surat_akuan_pelulus_edit', compact('item', 'kakitangan_list'));
+    }
+
+    public function suratAkuanPelulusUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'tarikh' => 'required|date',
+        ]);
+
+        $item = \App\Models\SuratAkuanPerubatanPelulus::findOrFail($id);
+        $item->update([
+            'tarikh' => $request->tarikh,
+        ]);
+
+        return redirect()->route('pentadbir.surat_akuan_pelulus')
+            ->with('success', 'Pelulus berjaya dikemaskini!');
+    }
+
+    public function suratAkuanPelulusDestroy($id)
+    {
+        \App\Models\SuratAkuanPerubatanPelulus::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.surat_akuan_pelulus')
+            ->with('success', 'Pelulus berjaya dipadam!');
+    }
+
     public function suratAkuanPelulus(Request $request)
     {
         if ($request->isMethod('post')) {
             $request->validate([
-                'idpelulus' => 'required|integer',
+                'idkakitangan' => 'required|integer',
                 'tarikh' => 'required|date',
             ]);
 
             \App\Models\SuratAkuanPerubatanPelulus::create([
-                'idpelulus' => $request->idpelulus,
-                'pengguna' => auth()->user()->id,
+                'idkakitangan' => $request->idkakitangan,
                 'tarikh' => $request->tarikh,
             ]);
 
@@ -636,7 +710,7 @@ class PentadbirController extends Controller
         $rows = \App\Models\SuratAkuanPerubatanPelulus::select(
             'surat_akuan_perubatan_pelulus.tarikh',
             'surat_akuan_perubatan_pelulus.id',
-            'kakitangan.nama'
+            'kakitangan.nama',
         )
             ->leftJoin('kakitangan', 'kakitangan.id', '=', 'surat_akuan_perubatan_pelulus.idkakitangan')
             ->orderBy('id', 'desc')

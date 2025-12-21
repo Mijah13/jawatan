@@ -10,9 +10,7 @@ class SuratAkuanPerubatanPelulus extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'idpelulus',
-        'pengguna',
+        'idkakitangan',
         'tarikh',
-        'kemaskini',
     ];
 }

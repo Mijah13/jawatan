@@ -70,12 +70,13 @@
                                                 </a>
 
                                                 |
-                                                <!-- <a href="{{ url('katalaluan/reset?id=' . $row->id) }}" target="_blank"
-                                                                            class="text-indigo-600 hover:underline">
-                                                                            Reset Password
-                                                                        </a> -->
-
-                                                <a href="{{ url('kakitangan/delete/' . $row->id) }}"
+                                                <a href="{{ route('kakitangan.reset', $row->id) }}" target="_blank"
+                                                    onclick="return confirm('Are you confirm to reset?')"
+                                                    class="text-indigo-600 hover:underline">
+                                                    Reset Password
+                                                </a>
+                                                |
+                                                <a href="{{ route('kakitangan.delete', $row->id) }}"
                                                     onclick="return confirm('Padam rekod ini?')"
                                                     class="text-red-600 hover:underline">
                                                     Delete

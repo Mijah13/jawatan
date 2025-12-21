@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -133,19 +133,19 @@
             margin-bottom: 40px;
         }
 
-        .form-floating > .form-control {
+        .form-floating>.form-control {
             border: 1px solid var(--border-color);
             border-radius: 8px;
             height: 50px;
             font-size: 14px;
         }
 
-        .form-floating > .form-control:focus {
+        .form-floating>.form-control:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.2rem rgba(0, 82, 163, 0.15);
         }
 
-        .form-floating > label {
+        .form-floating>label {
             color: #666;
             font-size: 13px;
             padding: 1rem 0.75rem;
@@ -286,7 +286,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .btn-login:disabled {
@@ -355,6 +357,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -376,6 +379,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <div class="row g-0 login-card">
@@ -437,7 +441,7 @@
                     @endif
 
                     {{-- @if (session('status'))
-                        <div class="alert alert-success">{{ session('status') }}</div>
+                    <div class="alert alert-success">{{ session('status') }}</div>
                     @endif --}}
 
                     <form method="POST" action="{{ route('login') }}" id="loginForm">
@@ -446,15 +450,9 @@
                         <!-- MyKad Input -->
                         <div class="form-group">
                             <div class="form-floating">
-                                <input type="text"
-                                       class="form-control @error('mykad') is-invalid @enderror"
-                                       id="mykad"
-                                       name="mykad"
-                                       placeholder="No. MyKad"
-                                       value="{{ old('mykad') }}"
-                                       autocomplete="off"
-                                       required
-                                       autofocus>
+                                <input type="text" class="form-control @error('mykad') is-invalid @enderror" id="mykad"
+                                    name="mykad" placeholder="No. MyKad" value="{{ old('mykad') }}" autocomplete="off"
+                                    required autofocus>
                                 <label for="mykad">
                                     <i class="fas fa-id-badge" style="margin-right: 8px;"></i>
                                     No. MyKad
@@ -471,13 +469,9 @@
                         <!-- Password Input -->
                         <div class="form-group">
                             <div class="form-floating input-group">
-                                <input type="password"
-                                       class="form-control @error('password') is-invalid @enderror"
-                                       id="password"
-                                       name="password"
-                                       placeholder="Kata Laluan"
-                                       required
-                                       autocomplete="current-password">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                    id="password" name="password" placeholder="Kata Laluan" required
+                                    autocomplete="current-password">
                                 <label for="password">
                                     <i class="fas fa-lock" style="margin-right: 8px;"></i>
                                     Kata Laluan
@@ -510,13 +504,7 @@
                             <span>Log Masuk</span>
                         </button>
 
-                        <!-- Support Link -->
-                        <div class="support-link">
-                            Lupa Kata Laluan? <br>
-                            <a href="#" onclick="alert('Hubungi bahagian IT untuk sokongan'); return false;">
-                                <i class="fas fa-question-circle"></i> Tukar Kata Laluan
-                            </a>
-                        </div>
+
                     </form>
 
                     <div class="divider">
@@ -537,7 +525,7 @@
 
     <script>
         // Toggle password visibility
-        document.getElementById('togglePassword').addEventListener('click', function() {
+        document.getElementById('togglePassword').addEventListener('click', function () {
             const passwordInput = document.getElementById('password');
             const isPassword = passwordInput.type === 'password';
 
@@ -548,7 +536,7 @@
         });
 
         // Form submission handling
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             const submitBtn = document.getElementById('submitBtn');
             const mykad = document.getElementById('mykad').value.trim();
             const password = document.getElementById('password').value.trim();
@@ -567,7 +555,7 @@
         });
 
         // Format MyKad input (optional - adds dashes)
-        document.getElementById('mykad').addEventListener('input', function(e) {
+        document.getElementById('mykad').addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length <= 12) {
                 e.target.value = value;
@@ -575,9 +563,10 @@
         });
 
         // Auto-focus first field on page load
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             document.getElementById('mykad').focus();
         });
     </script>
 </body>
+
 </html>

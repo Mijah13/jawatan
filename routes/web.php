@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/kakitangan/edit/{id}', [KakitanganController::class, 'edit'])->name('kakitangan.edit');
     Route::put('/kakitangan_update/{id}', [KakitanganController::class, 'update'])->name('kakitangan.update');
     Route::get('/kakitangan/delete/{id}', [KakitanganController::class, 'destroy'])->name('kakitangan.delete');
+    Route::get('/kakitangan/reset/{id}', [KakitanganController::class, 'reset'])->name('kakitangan.reset');
     // Jawatan
     // Route::get('/jawatan', [JawatanController::class, 'index']);
 
@@ -185,7 +186,14 @@ Route::middleware('auth')->group(function () {
 
         // Surat Akuan Perubatan
         Route::match(['get', 'post'], '/surat-akuan-senarai', [PentadbirController::class, 'suratAkuanSenarai'])->name('surat_akuan_senarai');
+        Route::get('/surat-akuan-senarai/{id}/edit', [PentadbirController::class, 'suratAkuanSenaraiEdit'])->name('surat_akuan_senarai.edit');
+        Route::put('/surat-akuan-senarai/{id}/update', [PentadbirController::class, 'suratAkuanSenaraiUpdate'])->name('surat_akuan_senarai.update');
+        Route::delete('/surat-akuan-senarai/{id}/destroy', [PentadbirController::class, 'suratAkuanSenaraiDestroy'])->name('surat_akuan_senarai.destroy');
+
         Route::match(['get', 'post'], '/surat-akuan-pelulus', [PentadbirController::class, 'suratAkuanPelulus'])->name('surat_akuan_pelulus');
+        Route::get('/surat-akuan-pelulus/{id}/edit', [PentadbirController::class, 'suratAkuanPelulusEdit'])->name('surat_akuan_pelulus.edit');
+        Route::put('/surat-akuan-pelulus/{id}/update', [PentadbirController::class, 'suratAkuanPelulusUpdate'])->name('surat_akuan_pelulus.update');
+        Route::delete('/surat-akuan-pelulus/{id}/destroy', [PentadbirController::class, 'suratAkuanPelulusDestroy'])->name('surat_akuan_pelulus.destroy');
     });
 
     // Route::resource('laporan', LaporanController::class); // Removed as resource methods were removed

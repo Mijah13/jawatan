@@ -32,12 +32,12 @@
                         <!-- Dropdown Menu -->
                         <div x-show="open" x-transition
                             class="absolute left-0 z-50 w-48 mt-2 bg-white rounded-md shadow-lg">
-                            <a href="{{ route('kakitangan.index') }}" @click="open = false"
+                            <!-- <a href="{{ route('kakitangan.index') }}" @click="open = false"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                 Maklumat Peribadi
-                            </a>
+                            </a> -->
                             @if(auth()->user()->level == 1 || auth()->user()->level == 2 || auth()->user()->level == 3)
-                                <a href="{{ route('kakitangan.index') }}" @click="open = false"
+                                <a href="{{ route('kakitangan.carian') }}" @click="open = false"
                                     class="block px-4 py-2 text-sm text-gray-700 border-t hover:bg-gray-100">
                                     Maklumat Kakitangan
                                 </a>
@@ -314,10 +314,10 @@
                                                     📚 Manual Pengguna
                                                 </a>
                                             @endif
-                                            <a href="{{ route('bantuan.cadangan') }}" @click="open = false"
+                                            <!-- <a href="{{ route('bantuan.cadangan') }}" @click="open = false"
                                                 class="text-sm text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded px-2 py-1.5 block">
                                                 💡 Cadangan & Maklum Balas
-                                            </a>
+                                            </a> -->
                                         </div>
                                     </div>
 
