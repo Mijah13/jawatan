@@ -30,17 +30,17 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="penempatan"
-                                    class="block text-sm font-medium text-gray-700 mb-2">Penempatan</label>
-                                <input type="text" name="penempatan" id="penempatan" maxlength="200" required
+                                <label for="jenis" class="block text-sm font-medium text-gray-700 mb-2">Jenis
+                                    Penempatan</label>
+                                <input type="text" name="jenis" id="jenis" maxlength="200" required
                                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                @error('penempatan')
+                                @error('jenis')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                             <button type="submit" class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md
-           hover:bg-blue-700 focus:outline-none
-           focus:ring-2 focus:ring-blue-500">
+                                    hover:bg-blue-700 focus:outline-none
+                                    focus:ring-2 focus:ring-blue-500">
                                 Submit
                             </button>
                         </div>
@@ -83,9 +83,17 @@
                                                 {{ $row->jenis }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <a href="{{ route('pentadbir.jenis_penempatan.edit', $row->id) }}"
+                                                    class="text-indigo-600 hover:text-indigo-900">Edit </a>
                                                 <span class="text-gray-300">|</span>
-                                                <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+                                                <form action="{{ route('pentadbir.jenis_penempatan.destroy', $row->id) }}"
+                                                    method="POST" class="inline"
+                                                    onsubmit="return confirm('Adakah anda pasti?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="text-red-600 hover:text-red-900">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

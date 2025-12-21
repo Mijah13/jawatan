@@ -34,8 +34,8 @@
                                 </div>
                                 <div>
                                     <button type="submit" class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md
-           hover:bg-blue-700 focus:outline-none
-           focus:ring-2 focus:ring-blue-500"> Submit
+                                        hover:bg-blue-700 focus:outline-none
+                                        focus:ring-2 focus:ring-blue-500"> Submit
                                     </button>
                                 </div>
                             </div>
@@ -72,9 +72,17 @@
                                                 {{ $row->jenis }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <a href="{{ route('pentadbir.jenis_isytihar.edit', $row->id) }}"
+                                                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                                 <span class="text-gray-300">|</span>
-                                                <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+                                                <form action="{{ route('pentadbir.jenis_isytihar.destroy', $row->id) }}"
+                                                    method="POST" class="inline"
+                                                    onsubmit="return confirm('Adakah anda pasti?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="text-red-600 hover:text-red-900">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

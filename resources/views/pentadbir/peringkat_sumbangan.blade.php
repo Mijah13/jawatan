@@ -26,60 +26,73 @@
                                     <label for="peringkat" class="block text-sm font-medium text-gray-700 mb-2">
                                         Peringkat
                                     </label>
-                                    <input type="text" name="peringkat" id="peringkat" maxlength="50" required>
+                                    <input type="text" name="peringkat" id="peringkat" maxlength="50" required
+                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    @error('peringkat')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
 
                                     <button type="submit" class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md
            hover:bg-blue-700 focus:outline-none
            focus:ring-2 focus:ring-blue-500">
                                         Submit
                                     </button>
-                                    @if(count($rows) > 0)
-                                        <div class="overflow-x-auto">
-                                            <table class="min-w-full divide-y divide-gray-200 border">
-                                                <thead class="bg-gray-50">
-                                                    <tr>
-                                                        <th scope="col"
-                                                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
-                                                            Bil
-                                                        </th>
-                                                        <th scope="col"
-                                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                            Peringkat Sumbangan
-                                                        </th>
-                                                        <th scope="col"
-                                                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
-                                                            Tindakan
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="bg-white divide-y divide-gray-200">
-                                                    @foreach($rows as $index => $row)
-                                                        <tr class="{{ $index % 2 == 0 ? 'bg-white' : 'bg-yellow-50' }}">
-                                                            <td
-                                                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                                                                {{ $index + 1 }}
-                                                            </td>
-                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                                {{ $row->peringkat }}
-                                                            </td>
-                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                                                                <a href="#"
-                                                                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                                                <span class="text-gray-300">|</span>
-                                                                <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    @else
-                                        <div class="text-center py-8 text-gray-500">
-                                            Tiada rekod.
-                                        </div>
-                                    @endif
                                 </div>
                             </div>
                         </div>
+                    </form>
+
+                    <!-- Data Table -->
+                    @if(count($rows) > 0)
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 border">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
+                                            Bil
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Peringkat Sumbangan
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
+                                            Tindakan
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    @foreach($rows as $index => $row)
+                                        <tr class="{{ $index % 2 == 0 ? 'bg-white' : 'bg-yellow-50' }}">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                                {{ $index + 1 }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                {{ $row->peringkat }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
+                                                <a href="{{ route('pentadbir.peringkat_sumbangan.edit', $row->id) }}"
+                                                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <span class="text-gray-300">|</span>
+                                                <form action="{{ route('pentadbir.peringkat_sumbangan.destroy', $row->id) }}" method="POST" class="inline" onsubmit="return confirm('Adakah anda pasti?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <div class="text-center py-8 text-gray-500">
+                            Tiada rekod.
+                        </div>
+                    @endif
                 </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>

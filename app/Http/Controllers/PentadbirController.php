@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Pentadbir;
 use App\Models\PeringkatSumbangan;
 use App\Models\Organisasi;
 use App\Models\Unit;
@@ -16,64 +15,8 @@ use Illuminate\Http\Request;
 
 class PentadbirController extends Controller
 {
-    public function index()
-    {
-        $data = Pentadbir::all();
-        return view('pentadbir.index', compact('data'));
-    }
 
-    public function create()
-    {
-        return view('pentadbir.create');
-    }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama' => 'required',
-            'email' => 'required|email|unique:pentadbirs,email',
-        ]);
-
-        Pentadbir::create($request->all());
-
-        return redirect()->route('pentadbir.index')
-            ->with('success', 'Pentadbir berjaya ditambah!');
-    }
-
-    public function show($id)
-    {
-        $item = Pentadbir::findOrFail($id);
-        return view('pentadbir.show', compact('item'));
-    }
-
-    public function edit($id)
-    {
-        $item = Pentadbir::findOrFail($id);
-        return view('pentadbir.edit', compact('item'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $item = Pentadbir::findOrFail($id);
-
-        $request->validate([
-            'nama' => 'required',
-            'email' => 'required|email|unique:pentadbirs,email,' . $id,
-        ]);
-
-        $item->update($request->all());
-
-        return redirect()->route('pentadbir.index')
-            ->with('success', 'Rekod pentadbir berjaya dikemaskini!');
-    }
-
-    public function destroy($id)
-    {
-        Pentadbir::findOrFail($id)->delete();
-
-        return redirect()->route('pentadbir.index')
-            ->with('success', 'Pentadbir berjaya dipadam!');
-    }
 
     // ========================================
     // PENETAPAN (SETTINGS) METHODS
@@ -98,6 +41,35 @@ class PentadbirController extends Controller
         return view('pentadbir.peringkat_sumbangan', compact('rows'));
     }
 
+    public function peringkatSumbanganEdit($id)
+    {
+        $item = PeringkatSumbangan::findOrFail($id);
+        return view('pentadbir.peringkat_sumbangan_edit', compact('item'));
+    }
+
+    public function peringkatSumbanganUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'peringkat' => 'required|string|max:50',
+        ]);
+
+        $item = PeringkatSumbangan::findOrFail($id);
+        $item->update([
+            'peringkat' => $request->peringkat,
+        ]);
+
+        return redirect()->route('pentadbir.peringkat_sumbangan')
+            ->with('success', 'Peringkat sumbangan berjaya dikemaskini!');
+    }
+
+    public function peringkatSumbanganDestroy($id)
+    {
+        PeringkatSumbangan::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.peringkat_sumbangan')
+            ->with('success', 'Peringkat sumbangan berjaya dipadam!');
+    }
+
     public function program(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -119,18 +91,47 @@ class PentadbirController extends Controller
         return view('pentadbir.program', compact('rows'));
     }
 
+    public function programEdit($id)
+    {
+        $item = Organisasi::findOrFail($id);
+        return view('pentadbir.program_edit', compact('item'));
+    }
+
+    public function programUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'kod' => 'required|string|max:50',
+            'nama' => 'required|string|max:200',
+        ]);
+
+        $item = Organisasi::findOrFail($id);
+        $item->update([
+            'kod' => $request->kod,
+            'program' => $request->nama,
+        ]);
+
+        return redirect()->route('pentadbir.program')
+            ->with('success', 'Program berjaya dikemaskini!');
+    }
+
+    public function programDestroy($id)
+    {
+        Organisasi::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.program')
+            ->with('success', 'Program berjaya dipadam!');
+    }
+
     public function unit(Request $request)
     {
         if ($request->isMethod('post')) {
             $request->validate([
-                'kod' => 'required|string|max:50',
-                'nama' => 'required|string|max:200',
+                'unit' => 'required|string|max:50',
                 'program' => 'required|integer',
             ]);
 
             Unit::create([
-                'kod' => $request->kod,
-                'unit' => $request->nama,
+                'unit' => $request->unit,
                 'program' => $request->program,
             ]);
 
@@ -150,6 +151,68 @@ class PentadbirController extends Controller
         return view('pentadbir.unit', compact('rows', 'program_list'));
     }
 
+    public function unitEdit($id)
+    {
+        $item = Unit::findOrFail($id);
+        $program_list = Organisasi::orderBy('program', 'asc')->get();
+
+        return view('pentadbir.unit_edit', compact('item', 'program_list'));
+    }
+
+    public function unitUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'program' => 'required|integer',
+            'unit' => 'required|string|max:200',
+        ]);
+
+
+        $item = Unit::findOrFail($id);
+        $item->update([
+            'program' => $request->program,
+            'unit' => $request->unit,
+        ]);
+
+        return redirect()->route('pentadbir.unit')
+            ->with('success', 'Unit berjaya dikemaskini!');
+    }
+
+    public function unitDestroy($id)
+    {
+        Unit::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.unit')
+            ->with('success', 'Unit berjaya dipadam!');
+    }
+
+    public function jenisIsytiharDestroy($id)
+    {
+        JenisIsytihar::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.jenis_isytihar')
+            ->with('success', 'Jenis isytihar berjaya dipadam!');
+    }
+
+    public function jenisIsytiharEdit($id)
+    {
+        $item = JenisIsytihar::findOrFail($id);
+        return view('pentadbir.jenis_isytihar_edit', compact('item'));
+    }
+
+    public function jenisIsytiharUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'jenis' => 'required|string|max:200',
+        ]);
+
+        $item = JenisIsytihar::findOrFail($id);
+        $item->update([
+            'jenis' => $request->jenis,
+        ]);
+
+        return redirect()->route('pentadbir.jenis_isytihar')
+            ->with('success', 'Jenis isytihar berjaya dikemaskini!');
+    }
     public function jenisIsytihar(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -169,6 +232,34 @@ class PentadbirController extends Controller
         return view('pentadbir.jenis_isytihar', compact('rows'));
     }
 
+    public function jenisPenempatanEdit($id)
+    {
+        $item = Penempatan::findOrFail($id);
+        return view('pentadbir.jenis_penempatan_edit', compact('item'));
+    }
+    public function jenisPenempatanUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'kod' => 'required|string|max:10',
+            'jenis' => 'required|string|max:200',
+        ]);
+
+        $item = Penempatan::findOrFail($id);
+        $item->update([
+            'kod' => $request->kod,
+            'jenis' => $request->jenis,
+        ]);
+
+        return redirect()->route('pentadbir.jenis_penempatan')
+            ->with('success', 'Jenis penempatan berjaya dikemaskini!');
+    }
+    public function jenisPenempatanDestroy($id)
+    {
+        Penempatan::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.jenis_penempatan')
+            ->with('success', 'Jenis penempatan berjaya dipadam!');
+    }
     public function jenisPenempatan(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -190,6 +281,34 @@ class PentadbirController extends Controller
         return view('pentadbir.jenis_penempatan', compact('rows'));
     }
 
+    public function jawatanEdit($id)
+    {
+        $item = Jawatan::findOrFail($id);
+        return view('pentadbir.jawatan_edit', compact('item'));
+    }
+    public function jawatanUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'kod' => 'required|string|max:50',
+            'jawatan' => 'required|string|max:200',
+        ]);
+
+        $item = Jawatan::findOrFail($id);
+        $item->update([
+            'kod' => $request->kod,
+            'jawatan' => $request->jawatan,
+        ]);
+
+        return redirect()->route('pentadbir.jawatan')
+            ->with('success', 'Jawatan berjaya dikemaskini!');
+    }
+    public function jawatanDestroy($id)
+    {
+        Jawatan::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.jawatan')
+            ->with('success', 'Jawatan berjaya dipadam!');
+    }
     public function jawatan(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -211,6 +330,34 @@ class PentadbirController extends Controller
         return view('pentadbir.jawatan', compact('rows'));
     }
 
+    public function gredEdit($id)
+    {
+        $item = Gred::findOrFail($id);
+        return view('pentadbir.gred_edit', compact('item'));
+    }
+    public function gredUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'gred' => 'required|string|max:50',
+            'keutamaan' => 'required|integer',
+        ]);
+
+        $item = Gred::findOrFail($id);
+        $item->update([
+            'gred' => $request->gred,
+            'keutamaan' => $request->keutamaan,
+        ]);
+
+        return redirect()->route('pentadbir.gred')
+            ->with('success', 'Gred berjaya dikemaskini!');
+    }
+    public function gredDestroy($id)
+    {
+        Gred::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.gred')
+            ->with('success', 'Gred berjaya dipadam!');
+    }
     public function gred(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -232,6 +379,38 @@ class PentadbirController extends Controller
         return view('pentadbir.gred', compact('rows'));
     }
 
+    public function perjawatanEdit($id)
+    {
+        $item = Perjawatan::findOrFail($id);
+        return view('pentadbir.perjawatan_edit', compact('item'));
+    }
+    public function perjawatanUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'jawatan' => 'required|integer',
+            'gred' => 'required|integer',
+            'program' => 'required|integer',
+            'unit' => 'required|integer',
+        ]);
+
+        $item = Perjawatan::findOrFail($id);
+        $item->update([
+            'jawatan' => $request->jawatan,
+            'gred' => $request->gred,
+            'program' => $request->program,
+            'unit' => $request->unit,
+        ]);
+
+        return redirect()->route('pentadbir.perjawatan')
+            ->with('success', 'Perjawatan berjaya dikemaskini!');
+    }
+    public function perjawatanDestroy($id)
+    {
+        Perjawatan::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.perjawatan')
+            ->with('success', 'Perjawatan berjaya dipadam!');
+    }
     public function perjawatan(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -264,6 +443,32 @@ class PentadbirController extends Controller
         return view('pentadbir.perjawatan', compact('rows', 'jawatan_list', 'gred_list', 'program_list', 'unit_list'));
     }
 
+    public function elaunEdit($id)
+    {
+        $item = Elaun::findOrFail($id);
+        return view('pentadbir.elaun_edit', compact('item'));
+    }
+    public function elaunUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:200',
+        ]);
+
+        $item = Elaun::findOrFail($id);
+        $item->update([
+            'nama' => $request->nama,
+        ]);
+
+        return redirect()->route('pentadbir.elaun')
+            ->with('success', 'Elaun berjaya dikemaskini!');
+    }
+    public function elaunDestroy($id)
+    {
+        Elaun::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.elaun')
+            ->with('success', 'Elaun berjaya dipadam!');
+    }
     public function elaun(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -283,6 +488,34 @@ class PentadbirController extends Controller
         return view('pentadbir.elaun', compact('rows'));
     }
 
+    public function motoHariPekerjaEdit($id)
+    {
+        $item = MotoHariPekerja::findOrFail($id);
+        return view('pentadbir.moto_hari_pekerja_edit', compact('item'));
+    }
+    public function motoHariPekerjaUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'tahun' => 'required|integer',
+            'moto' => 'required|string|max:200',
+        ]);
+
+        $item = MotoHariPekerja::findOrFail($id);
+        $item->update([
+            'tahun' => $request->tahun,
+            'moto' => $request->moto,
+        ]);
+
+        return redirect()->route('pentadbir.moto_hari_pekerja')
+            ->with('success', 'Moto hari pekerja berjaya dikemaskini!');
+    }
+    public function motoHariPekerjaDestroy($id)
+    {
+        MotoHariPekerja::findOrFail($id)->delete();
+
+        return redirect()->route('pentadbir.moto_hari_pekerja')
+            ->with('success', 'Moto hari pekerja berjaya dipadam!');
+    }
     public function motoHariPekerja(Request $request)
     {
         if ($request->isMethod('post')) {

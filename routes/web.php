@@ -126,15 +126,58 @@ Route::middleware('auth')->group(function () {
     // Pentadbir - Penetapan (Settings) Routes
     Route::prefix('pentadbir')->name('pentadbir.')->group(function () {
         Route::match(['get', 'post'], '/peringkat-sumbangan', [PentadbirController::class, 'peringkatSumbangan'])->name('peringkat_sumbangan');
+        Route::get('/peringkat-sumbangan/{id}/edit', [PentadbirController::class, 'peringkatSumbanganEdit'])->name('peringkat_sumbangan.edit');
+        Route::put('/peringkat-sumbangan/{id}/update', [PentadbirController::class, 'peringkatSumbanganUpdate'])->name('peringkat_sumbangan.update');
+        Route::delete('/peringkat-sumbangan/{id}/destroy', [PentadbirController::class, 'peringkatSumbanganDestroy'])->name('peringkat_sumbangan.destroy');
+
         Route::match(['get', 'post'], '/program', [PentadbirController::class, 'program'])->name('program');
+        Route::get('/program/{id}/edit', [PentadbirController::class, 'programEdit'])->name('program.edit');
+        Route::put('/program/{id}/update', [PentadbirController::class, 'programUpdate'])->name('program.update');
+        Route::delete('/program/{id}/destroy', [PentadbirController::class, 'programDestroy'])->name('program.destroy');
+
+        Route::get('/unit/{id}/edit', [PentadbirController::class, 'unitEdit'])->name('unit.edit');
+        Route::put('/unit/{id}/update', [PentadbirController::class, 'unitUpdate'])->name('unit.update');
+        Route::delete('/unit/{id}/destroy', [PentadbirController::class, 'unitDestroy'])->name('unit.destroy');
         Route::match(['get', 'post'], '/unit', [PentadbirController::class, 'unit'])->name('unit');
+
         Route::match(['get', 'post'], '/jenis-isytihar', [PentadbirController::class, 'jenisIsytihar'])->name('jenis_isytihar');
+        Route::get('/jenis-isytihar/{id}/edit', [PentadbirController::class, 'jenisIsytiharEdit'])->name('jenis_isytihar.edit');
+        Route::put('/jenis-isytihar/{id}/update', [PentadbirController::class, 'jenisIsytiharUpdate'])->name('jenis_isytihar.update');
+        Route::delete('/jenis-isytihar/{id}/destroy', [PentadbirController::class, 'jenisIsytiharDestroy'])->name('jenis_isytihar.destroy');
+
+
         Route::match(['get', 'post'], '/jenis-penempatan', [PentadbirController::class, 'jenisPenempatan'])->name('jenis_penempatan');
+        Route::get('/jenis-penempatan/{id}/edit', [PentadbirController::class, 'jenisPenempatanEdit'])->name('jenis_penempatan.edit');
+        Route::put('/jenis-penempatan/{id}/update', [PentadbirController::class, 'jenisPenempatanUpdate'])->name('jenis_penempatan.update');
+        Route::delete('/jenis-penempatan/{id}/destroy', [PentadbirController::class, 'jenisPenempatanDestroy'])->name('jenis_penempatan.destroy');
+
+
         Route::match(['get', 'post'], '/jawatan', [PentadbirController::class, 'jawatan'])->name('jawatan');
+        Route::get('/jawatan/{id}/edit', [PentadbirController::class, 'jawatanEdit'])->name('jawatan.edit');
+        Route::put('/jawatan/{id}/update', [PentadbirController::class, 'jawatanUpdate'])->name('jawatan.update');
+        Route::delete('/jawatan/{id}/destroy', [PentadbirController::class, 'jawatanDestroy'])->name('jawatan.destroy');
+
+
         Route::match(['get', 'post'], '/gred', [PentadbirController::class, 'gred'])->name('gred');
+        Route::get('/gred/{id}/edit', [PentadbirController::class, 'gredEdit'])->name('gred.edit');
+        Route::put('/gred/{id}/update', [PentadbirController::class, 'gredUpdate'])->name('gred.update');
+        Route::delete('/gred/{id}/destroy', [PentadbirController::class, 'gredDestroy'])->name('gred.destroy');
+
+
         Route::match(['get', 'post'], '/perjawatan', [PentadbirController::class, 'perjawatan'])->name('perjawatan');
+        Route::get('/perjawatan/{id}/edit', [PentadbirController::class, 'perjawatanEdit'])->name('perjawatan.edit');
+        Route::put('/perjawatan/{id}/update', [PentadbirController::class, 'perjawatanUpdate'])->name('perjawatan.update');
+        Route::delete('/perjawatan/{id}/destroy', [PentadbirController::class, 'perjawatanDestroy'])->name('perjawatan.destroy');
+
         Route::match(['get', 'post'], '/elaun', [PentadbirController::class, 'elaun'])->name('elaun');
+        Route::get('/elaun/{id}/edit', [PentadbirController::class, 'elaunEdit'])->name('elaun.edit');
+        Route::put('/elaun/{id}/update', [PentadbirController::class, 'elaunUpdate'])->name('elaun.update');
+        Route::delete('/elaun/{id}/destroy', [PentadbirController::class, 'elaunDestroy'])->name('elaun.destroy');
+
         Route::match(['get', 'post'], '/moto-hari-pekerja', [PentadbirController::class, 'motoHariPekerja'])->name('moto_hari_pekerja');
+        Route::get('/moto-hari-pekerja/{id}/edit', [PentadbirController::class, 'motoHariPekerjaEdit'])->name('moto_hari_pekerja.edit');
+        Route::put('/moto-hari-pekerja/{id}/update', [PentadbirController::class, 'motoHariPekerjaUpdate'])->name('moto_hari_pekerja.update');
+        Route::delete('/moto-hari-pekerja/{id}/destroy', [PentadbirController::class, 'motoHariPekerjaDestroy'])->name('moto_hari_pekerja.destroy');
 
         // Surat Pengesahan
         Route::match(['get', 'post'], '/surat-pengesahan-cari', [PentadbirController::class, 'suratPengesahanCari'])->name('surat_pengesahan_cari');
@@ -146,7 +189,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Route::resource('laporan', LaporanController::class); // Removed as resource methods were removed
-    Route::resource('pentadbir', PentadbirController::class);
+    // Route::resource('pentadbir', PentadbirController::class);
 
     // Bantuan (Help) Routes
     Route::prefix('bantuan')->name('bantuan.')->group(function () {

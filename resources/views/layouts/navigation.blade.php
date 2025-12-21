@@ -473,13 +473,6 @@
                 </div>
             </div>
 
-            <!--   
-            <x-responsive-nav-link :href="route('pentadbir.index')" :active="request()->routeIs('pentadbir')">
-                {{ __('Pentadbir Sistem') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('bantuan.index')" :active="request()->routeIs('bantuan')">
-                {{ __('Bantuan') }}
-            </x-responsive-nav-link> -->
         </div>
 
         <!-- Responsive Settings Options -->

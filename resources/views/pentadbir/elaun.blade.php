@@ -23,12 +23,12 @@
                         <div class="bg-yellow-50 p-4 rounded-md">
                             <div class="grid grid-cols-1 gap-4">
                                 <div>
-                                    <label for="elaun" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">
                                         Elaun
                                     </label>
-                                    <input type="text" name="elaun" id="elaun" maxlength="200" required
+                                    <input type="text" name="nama" id="nama" maxlength="200" required
                                         class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                    @error('elaun')
+                                    @error('nama')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -73,9 +73,16 @@
                                                 {{ $row->nama }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <a href="{{ route('pentadbir.elaun.edit', $row->id) }}"
+                                                    class="text-indigo-600 hover:text-indigo-900">Edit </a>
                                                 <span class="text-gray-300">|</span>
-                                                <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+                                                <form action="{{ route('pentadbir.elaun.destroy', $row->id) }}" method="POST"
+                                                    class="inline" onsubmit="return confirm('Adakah anda pasti?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="text-red-600 hover:text-red-900">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

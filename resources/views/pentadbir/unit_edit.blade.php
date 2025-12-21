@@ -17,12 +17,6 @@
                             @csrf
                             @method('PUT')
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <x-input-label for="kod" :value="__('Kod Unit')" />
-                                    <x-text-input id="kod" class="block mt-1 w-full" type="text" name="kod"
-                                        :value="old('kod', $item->kod)" required autofocus />
-                                    <x-input-error :messages="$errors->get('kod')" class="mt-2" />
-                                </div>
 
                                 <div>
                                     <x-input-label for="program" :value="__('Program')" />
@@ -37,10 +31,10 @@
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <x-input-label for="nama" :value="__('Nama Unit')" />
-                                    <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama"
-                                        :value="old('nama', $item->unit)" required />
-                                    <x-input-error :messages="$errors->get('nama')" class="mt-2" />
+                                    <x-input-label for="unit" :value="__('Nama Unit')" />
+                                    <x-text-input id="unit" class="block mt-1 w-full" type="text" name="unit"
+                                        :value="old('unit', $item->unit)" required />
+                                    <x-input-error :messages="$errors->get('unit')" class="mt-2" />
                                 </div>
                             </div>
 

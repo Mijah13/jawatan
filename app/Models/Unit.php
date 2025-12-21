@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $program
  * @property string $unit
+ * @property string $kod
  * @property Carbon $kemaskini
  *
  * @package App\Models
@@ -32,6 +33,6 @@ class Unit extends Model
 	protected $fillable = [
 		'program',
 		'unit',
-		'kemaskini'
+		'kod'
 	];
 }

@@ -77,8 +77,9 @@
                             </div>
                         </div>
                         <div class="mt-4 bg-yellow-50 p-4 rounded-md">
-                            <button type="submit"
-                                class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <button type="submit" class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md
+                                hover:bg-blue-700 focus:outline-none
+                                focus:ring-2 focus:ring-blue-500">
                                 Submit
                             </button>
                         </div>
