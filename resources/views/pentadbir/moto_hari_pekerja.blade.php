@@ -29,7 +29,7 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div>
+                            <div class="bg-yellow-50 p-4 rounded-md">
                                 <label for="moto" class="block text-sm font-medium text-gray-700 mb-2">Moto</label>
                                 <input type="text" name="moto" id="moto" maxlength="200" required
                                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -49,8 +49,8 @@
 
                     <!-- Data Table -->
                     @if(count($rows) > 0)
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 border">
+                        <div class="overflow-x-auto border rounded-lg max-w-4xl mx-auto">
+                            <table class="w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col"
@@ -84,17 +84,19 @@
                                                 {{ $row->moto }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                                                <a href="{{ route('pentadbir.moto_hari_pekerja.edit', $row->id) }}"
-                                                    class="text-indigo-600 hover:text-indigo-900">Edit </a>
-                                                <span class="text-gray-300">|</span>
-                                                <form action="{{ route('pentadbir.moto_hari_pekerja.destroy', $row->id) }}"
-                                                    method="POST" class="inline"
-                                                    onsubmit="return confirm('Adakah anda pasti?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="text-red-600 hover:text-red-900">Delete</button>
-                                                </form>
+                                                <div class="inline-flex items-center gap-2">
+                                                    <a href="{{ route('pentadbir.moto_hari_pekerja.edit', $row->id) }}"
+                                                        class="text-indigo-600 hover:text-indigo-900">Edit </a>
+                                                    <span class="text-gray-300">|</span>
+                                                    <form action="{{ route('pentadbir.moto_hari_pekerja.destroy', $row->id) }}"
+                                                        method="POST" class="inline"
+                                                        onsubmit="return confirm('Adakah anda pasti?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="text-red-600 hover:text-red-900">Delete</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

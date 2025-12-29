@@ -58,8 +58,8 @@
 
                     <!-- Data Table -->
                     @if(count($rows) > 0)
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 border">
+                        <div class="overflow-x-auto border rounded-lg max-w-4xl mx-auto">
+                            <table class="w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col"

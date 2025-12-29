@@ -21,7 +21,7 @@
                     <form method="POST" action="{{ route('pentadbir.jawatan') }}" class="mb-8">
                         @csrf
                         <div class="space-y-4">
-                            <div class="bg-yellow-50 p-4 rounded-md">
+                            <div class="bg-yellow-50 rounded-md">
                                 <label for="kod" class="block text-sm font-medium text-gray-700 mb-2">Kod</label>
                                 <input type="text" name="kod" id="kod" maxlength="50" required
                                     class="w-full md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -29,7 +29,7 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div>
+                            <div class="mt-3">
                                 <label for="jawatan"
                                     class="block text-sm font-medium text-gray-700 mb-2">Jawatan</label>
                                 <input type="text" name="jawatan" id="jawatan" maxlength="200" required
@@ -38,7 +38,7 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="bg-yellow-50 p-4 rounded-md">
+                            <div class="bg-yellow-50 rounded-md">
                                 <button type="submit" class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md
            hover:bg-blue-700 focus:outline-none
            focus:ring-2 focus:ring-blue-500">
@@ -50,8 +50,8 @@
 
                     <!-- Data Table -->
                     @if(count($rows) > 0)
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 border">
+                        <div class="overflow-x-auto border rounded-lg max-w-4xl mx-auto">
+                            <table class="w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col"
@@ -85,16 +85,19 @@
                                                 {{ $row->jawatan }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                                                <a href="{{ route('pentadbir.jawatan.edit', $row->id) }}"
-                                                    class="text-indigo-600 hover:text-indigo-900">Edit </a>
-                                                <span class="text-gray-300">|</span>
-                                                <form action="{{ route('pentadbir.jawatan.destroy', $row->id) }}" method="POST"
-                                                    class="inline" onsubmit="return confirm('Adakah anda pasti?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="text-red-600 hover:text-red-900">Delete</button>
-                                                </form>
+                                                <div class="inline-flex items-center gap-2">
+                                                    <a href="{{ route('pentadbir.jawatan.edit', $row->id) }}"
+                                                        class="text-indigo-600 hover:text-indigo-900">Edit </a>
+                                                    <span class="text-gray-300">|</span>
+                                                    <form action="{{ route('pentadbir.jawatan.destroy', $row->id) }}"
+                                                        method="POST" class="inline"
+                                                        onsubmit="return confirm('Adakah anda pasti?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="text-red-600 hover:text-red-900">Delete</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

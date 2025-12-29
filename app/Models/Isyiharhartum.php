@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Isyiharhartum extends Model
+class IsyiharHartum extends Model
 {
 	protected $table = 'isyiharharta';
 	public $timestamps = false;
@@ -43,9 +43,9 @@ class Isyiharhartum extends Model
 		'no_rujukan'
 	];
 
-    public function jenisIsytihar()
-    {
-        return $this->belongsTo(JenisIsytihar::class, 'jenis', 'id');
-    }
+	public function jenisIsytihar()
+	{
+		return $this->belongsTo(JenisIsytihar::class, 'jenis', 'id');
+	}
 
 }

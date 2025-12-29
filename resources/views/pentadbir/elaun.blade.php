@@ -45,8 +45,8 @@
 
                     <!-- Data Table -->
                     @if(count($rows) > 0)
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 border">
+                        <div class="overflow-x-auto border rounded-lg max-w-4xl mx-auto">
+                            <table class="w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col"
@@ -73,16 +73,19 @@
                                                 {{ $row->nama }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                                                <a href="{{ route('pentadbir.elaun.edit', $row->id) }}"
-                                                    class="text-indigo-600 hover:text-indigo-900">Edit </a>
-                                                <span class="text-gray-300">|</span>
-                                                <form action="{{ route('pentadbir.elaun.destroy', $row->id) }}" method="POST"
-                                                    class="inline" onsubmit="return confirm('Adakah anda pasti?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="text-red-600 hover:text-red-900">Delete</button>
-                                                </form>
+                                                <div class="inline-flex items-center gap-2">
+                                                    <a href="{{ route('pentadbir.elaun.edit', $row->id) }}"
+                                                        class="text-indigo-600 hover:text-indigo-900">Edit </a>
+                                                    <span class="text-gray-300">|</span>
+                                                    <form action="{{ route('pentadbir.elaun.destroy', $row->id) }}"
+                                                        method="POST" class="inline"
+                                                        onsubmit="return confirm('Adakah anda pasti?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="text-red-600 hover:text-red-900">Delete</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

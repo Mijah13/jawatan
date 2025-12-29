@@ -20,7 +20,7 @@
                     <!-- Add Form -->
                     <form method="POST" action="{{ route('pentadbir.perjawatan') }}" class="mb-8">
                         @csrf
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                             <div class="bg-yellow-50 p-4 rounded-md">
                                 <label for="jawatan"
                                     class="block text-sm font-medium text-gray-700 mb-2">Jawatan</label>
@@ -35,7 +35,7 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div>
+                            <div class="bg-yellow-50 p-4 rounded-md">
                                 <label for="gred" class="block text-sm font-medium text-gray-700 mb-2">Gred</label>
                                 <select name="gred" id="gred" required
                                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -48,7 +48,7 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div>
+                            <div class="bg-yellow-50 p-4 rounded-md">
                                 <label for="bilanganperjawatan"
                                     class="block text-sm font-medium text-gray-700 mb-2">Bilangan Perjawatan</label>
                                 <input type="text" name="bilanganperjawatan" id="bilanganperjawatan" maxlength="200"
@@ -58,7 +58,7 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div>
+                            <div class="bg-yellow-50 p-4 rounded-md">
                                 <label for="waran" class="block text-sm font-medium text-gray-700 mb-2">Kod
                                     Waran</label>
                                 <input type="text" name="waran" id="waran" maxlength="200" required
@@ -68,7 +68,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="mt-4 bg-yellow-50 p-4 rounded-md">
+                        <div class="bg-yellow-50 p-4 rounded-md">
                             <button type="submit" class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md
                                 hover:bg-blue-700 focus:outline-none
                                 focus:ring-2 focus:ring-blue-500">
@@ -79,8 +79,8 @@
 
                     <!-- Data Table -->
                     @if(count($rows) > 0)
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 border">
+                        <div class="overflow-x-auto border rounded-lg max-w-4xl mx-auto">
+                            <table class="w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col"
@@ -128,17 +128,19 @@
                                                 {{ $row->bilanganperjawatan ?? '-' }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                                                <a href="{{ route('pentadbir.perjawatan.edit', $row->id) }}"
-                                                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                                <span class="text-gray-300">|</span>
-                                                <form action="{{ route('pentadbir.perjawatan.destroy', $row->id) }}"
-                                                    method="POST" class="inline"
-                                                    onsubmit="return confirm('Adakah anda pasti?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="text-red-600 hover:text-red-900">Delete</button>
-                                                </form>
+                                                <div class="inline-flex items-center gap-2">
+                                                    <a href="{{ route('pentadbir.perjawatan.edit', $row->id) }}"
+                                                        class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                    <span class="text-gray-300">|</span>
+                                                    <form action="{{ route('pentadbir.perjawatan.destroy', $row->id) }}"
+                                                        method="POST" class="inline"
+                                                        onsubmit="return confirm('Adakah anda pasti?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="text-red-600 hover:text-red-900">Delete</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

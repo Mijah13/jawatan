@@ -21,7 +21,7 @@
                     <form method="POST" action="{{ route('pentadbir.program') }}" class="mb-8">
                         @csrf
                         <div class="space-y-4">
-                            <div class="bg-yellow-50 p-4 rounded-md">
+                            <div class="bg-yellow-50 rounded-md">
                                 <label for="kod" class="block text-sm font-medium text-gray-700 mb-2">Kod</label>
                                 <input type="text" name="kod" id="kod" maxlength="50" required
                                     class="w-full md:w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -29,7 +29,7 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div>
+                            <div class="mt-3">
                                 <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Program /
                                     Bahagian</label>
                                 <input type="text" name="nama" id="nama" maxlength="200" required
@@ -39,8 +39,8 @@
                                 @enderror
                             </div>
                             <button type="submit" class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md
-           hover:bg-blue-700 focus:outline-none
-           focus:ring-2 focus:ring-blue-500">
+                                hover:bg-blue-700 focus:outline-none
+                                focus:ring-2 focus:ring-blue-500">
                                 Submit
                             </button>
 
@@ -84,12 +84,15 @@
                                                 {{ $row->program }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                                                <a href="{{ route('pentadbir.program.edit', $row->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <a href="{{ route('pentadbir.program.edit', $row->id) }}"
+                                                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                                 <span class="text-gray-300">|</span>
-                                                <form action="{{ route('pentadbir.program.destroy', $row->id) }}" method="POST" class="inline" onsubmit="return confirm('Adakah anda pasti?');">
+                                                <form action="{{ route('pentadbir.program.destroy', $row->id) }}" method="POST"
+                                                    class="inline" onsubmit="return confirm('Adakah anda pasti?');">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                                    <button type="submit"
+                                                        class="text-red-600 hover:text-red-900">Delete</button>
                                                 </form>
                                             </td>
                                         </tr>
