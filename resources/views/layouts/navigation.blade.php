@@ -36,7 +36,7 @@
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                 Maklumat Peribadi
                             </a> -->
-                            @if(auth()->user()->level == 1 || auth()->user()->level == 2 || auth()->user()->level == 3)
+                            @if(auth()->user()->level == 1 || auth()->user()->level == 2 || auth()->user()->level == 3 )
                                 <a href="{{ route('kakitangan.carian') }}" @click="open = false"
                                     class="block px-4 py-2 text-sm text-gray-700 border-t hover:bg-gray-100">
                                     Maklumat Kakitangan
@@ -148,6 +148,8 @@
                                 </div>
 
                                 <!-- ===== LATIHAN (Column 4) ===== -->
+                                @if(auth()->user()->level == 1 || auth()->user()->level == 2 || auth()->user()->level == 3 )
+
                                 <div class="col-span-1 border-l">
                                     <h3
                                         class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 border-b pb-1">
@@ -164,6 +166,7 @@
                                         </a>
                                     </div>
                                 </div>
+                                @endif
 
                                 <div class="col-span-1 border-l">
                                     <h3
@@ -186,6 +189,7 @@
                         </div>
                     </div>
 
+                    @if(auth()->user()->level == 1 || auth()->user()->level == 2)
 
                     <div class="relative z-50" x-data="{ open: false, sub: null }" @click.away="open=false; sub=null">
 
@@ -295,6 +299,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
 
                     <!-- Bantuan Dropdown -->
                     <div class="relative" x-data="{ open: false }" @click.away="open = false">
