@@ -18,56 +18,38 @@
                         <div>
                             <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-1">Analytics</p>
                             <h3 class="text-2xl font-bold text-gray-800">Ringkasan & Trend</h3>
-                            <p class="text-sm text-gray-500">Preview UI sahaja (dummy data).</p>
                         </div>
-                        <div class="mt-4 md:mt-0 flex flex-wrap gap-2">
-                            <select
-                                class="rounded-md border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500 shadow-sm">
-                                <option>2025</option>
-                                <option>2024</option>
-                            </select>
-                            <select
-                                class="rounded-md border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500 shadow-sm">
-                                <option>Semua Unit</option>
-                            </select>
-                            <select
-                                class="rounded-md border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500 shadow-sm">
-                                <option>Semua Status</option>
-                            </select>
-                            <button
-                                class="bg-gray-800 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Tapis</button>
-                            <button
-                                class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-50">Export</button>
+
+                    </div>
+
+                    <div class="flex flex-nowrap gap-6 mb-8 overflow-x-auto">
+                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 shadow-sm min-w-[250px]">
+
+                            <p class="text-sm font-bold text-gray-600 mb-1">Kakitangan Aktif</p>
+                            <p class="text-3xl font-extrabold text-gray-900">{{ $kakitanganAktif }}</p>
+                            <p class="text-xs text-green-600 font-medium mt-1">+{{ $kakitanganBaruBulanIni }} bulan ini
+                            </p>
+                        </div>
+                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 shadow-sm min-w-[250px]">
+
+                            <p class="text-sm font-bold text-gray-600 mb-1">Jawatan Aktif</p>
+                            <p class="text-3xl font-extrabold text-gray-900">{{ $jawatanAktif }}</p>
+                            <p class="text-xs text-gray-500 mt-1">Kosong: {{ $jawatanKosong }}</p>
+                        </div>
+
+                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 shadow-sm min-w-[250px]">
+                            <p class="text-sm font-bold text-gray-600 mb-1">Perjawatan (YTD)</p>
+                            <p class="text-3xl font-extrabold text-gray-900">{{ $perjawatanYTD }}</p>
+                            <p class="text-xs text-gray-500 mt-1">Lantikan {{ date('Y') }}</p>
+                        </div>
+
+                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 shadow-sm min-w-[250px]">
+                            <p class="text-sm font-bold text-gray-600 mb-1">Isytihar Pending</p>
+                            <p class="text-3xl font-extrabold text-gray-900">{{ $isytiharPending }}</p>
+                            <p class="text-xs text-red-600 font-medium mt-1">Termasuk tiada rekod</p>
                         </div>
                     </div>
 
-                    {{-- Summary Cards --}}
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <!-- Card 1 -->
-                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 shadow-sm">
-                            <p class="text-sm font-bold text-gray-600 mb-1">Kakitangan Aktif</p>
-                            <p class="text-3xl font-extrabold text-gray-900">412</p>
-                            <p class="text-xs text-green-600 font-medium mt-1">+12 bulan ini</p>
-                        </div>
-                        <!-- Card 2 -->
-                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 shadow-sm">
-                            <p class="text-sm font-bold text-gray-600 mb-1">Jawatan Aktif</p>
-                            <p class="text-3xl font-extrabold text-gray-900">128</p>
-                            <p class="text-xs text-gray-500 mt-1">Kosong: 9</p>
-                        </div>
-                        <!-- Card 3 -->
-                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 shadow-sm">
-                            <p class="text-sm font-bold text-gray-600 mb-1">Perjawatan (YTD)</p>
-                            <p class="text-3xl font-extrabold text-gray-900">56</p>
-                            <p class="text-xs text-gray-500 mt-1">8 baharu</p>
-                        </div>
-                        <!-- Card 4 -->
-                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 shadow-sm">
-                            <p class="text-sm font-bold text-gray-600 mb-1">Isytihar Pending</p>
-                            <p class="text-3xl font-extrabold text-gray-900">17</p>
-                            <p class="text-xs text-red-600 font-medium mt-1">Overdue: 4</p>
-                        </div>
-                    </div>
 
                     {{-- Charts Section --}}
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -125,7 +107,7 @@
                     var optionsLine = {
                         series: [{
                             name: "Kakitangan Baharu",
-                            data: [3, 5, 4, 6, 2, 8, 6, 4, 7, 3, 2, 5]
+                            data: @json($trendData)
                         }],
                         chart: {
                             height: 320,
@@ -154,7 +136,6 @@
                         },
                         yaxis: {
                             min: 0,
-                            max: 10,
                             tickAmount: 5
                         }
                     };
@@ -167,7 +148,7 @@
                     var optionsBar = {
                         series: [{
                             name: 'Jumlah',
-                            data: [18, 14, 22, 9, 7, 11, 16, 5]
+                            data: @json($jawatanData)
                         }],
                         chart: {
                             height: 320,
@@ -186,7 +167,7 @@
                         legend: { show: false },
                         colors: ['#60a5fa', '#60a5fa', '#60a5fa', '#60a5fa', '#60a5fa', '#60a5fa', '#60a5fa', '#60a5fa'], // Blue-400
                         xaxis: {
-                            categories: ['N19', 'N22', 'N29', 'N32', 'N41', 'W29', 'W41', 'J29'],
+                            categories: @json($jawatanLabels),
                             labels: {
                                 style: { fontSize: '12px' }
                             },
@@ -203,8 +184,8 @@
 
                     // Chart 3: Isytihar Harta (Doughnut Chart)
                     var optionsDoughnut = {
-                        series: [75, 15, 5], // Complete, Pending, Overdue
-                        labels: ['Complete', 'Pending', 'Overdue'],
+                        series: @json($isytiharData), // [Complete, Pending, Overdue]
+                        labels: ['Sah', 'Tiada Rekod', 'Expired'],
                         chart: {
                             type: 'donut',
                             height: 320,

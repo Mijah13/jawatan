@@ -27,11 +27,10 @@ Route::get('/', function () {
 });
 
 // Dashboard
-Route::get('/dashboard', function () {
-    // Get the authenticated user from session
-    $user = auth()->user();
-    return view('dashboard', ['user' => $user]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Dashboard
+use App\Http\Controllers\DashboardController;
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Authenticated routes
 Route::middleware('auth')->group(function () {
