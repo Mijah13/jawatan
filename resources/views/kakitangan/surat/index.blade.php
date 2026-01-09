@@ -48,7 +48,7 @@
 
                 @if($surat->count() > 0)
                     <div class="overflow-x-auto">
-                        <table class="min-w-full border border-gray-200 text-sm">
+                        <table class="w-full text-sm text-left border border-collapse border-gray-300">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="p-3 border">Bil</th>
@@ -88,15 +88,16 @@
                                             {{ $s->fail }} ({{ $s->id }})
                                         </td>
                                         <td class="p-3 border text-center space-x-2">
-                                            <a href="#" class="text-indigo-600 hover:underline text-sm">
+                                            <a href="{{ route('surat.cetak', $s->id) }}" class="text-indigo-600 hover:underline text-sm">
                                                 Cetak
                                             </a>
                                             @if($s->status != 1)
-                                                <a href="#" class="text-gray-600 hover:underline text-sm">
+                                                <a href="{{ route('surat.edit', $s->id) }}" class="text-gray-600 hover:underline text-sm">
                                                     Edit
                                                 </a>
                                             @endif
-                                        </td>
+                                        </td> 
+                                        
                                     </tr>
                                 @endforeach
                             </tbody>

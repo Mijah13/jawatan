@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class LaporanController extends Controller
 {
@@ -324,5 +326,33 @@ class LaporanController extends Controller
             ->get();
 
         return view('kakitangan.laporan.apc_pingat', compact('rows'));
+    }
+
+    public function senarai_isytihar()
+    {
+        $lastUpdateRaw = DB::table('isyiharharta')->max('tarikhkemaskini');
+
+        $tarikhKemaskini = $lastUpdateRaw
+            ? Carbon::parse($lastUpdateRaw)->format('d/m/Y')
+            : '-';
+
+        $rows = DB::table('isytiharhartajawatan')->get();
+
+        // Return the view with data
+        return view('kakitangan.laporan.isytihar_harta', compact('rows', 'tarikhKemaskini'));
+
+    }
+
+    public function gagal_isytihar()
+    {
+        $lastUpdateRaw = DB::table('isyiharharta')->max('tarikhkemaskini');
+
+        $tarikhKemaskini = $lastUpdateRaw
+            ? Carbon::parse($lastUpdateRaw)->format('d/m/Y')
+            : '-';
+
+        $rows = DB::table('isytiharlebih5tahun')->get();
+
+        return view('kakitangan.laporan.gagal_isytihar', compact('rows', 'tarikhKemaskini'));
     }
 }

@@ -48,10 +48,10 @@
                                             {{ $s->no_rujukan ? 'CIAST 500-2/19/1(' . $s->no_rujukan . ')' : '-' }}
                                         </td>
                                         <td class="p-2 border border-gray-300">
-                                            <a href="#" class="text-blue-600 hover:underline">Cetak</a>
+                                            <a href="{{route('surat_akuan.cetak', $s->id)}}" class="text-blue-600 hover:underline">Cetak</a>
                                             @if(!$s->no_rujukan)
-                                                | <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                                                | <a href="#" class="text-red-600 hover:underline">Delete</a>
+                                                | <a href="{{ route('surat_akuan.edit', $s->id) }}" class="text-blue-600 hover:underline">Edit</a>
+                                                | <a href="{{ route('surat_akuan.destroy', $s->id) }}" onclick="return confirm('Adakah anda ingin menghapus?');" class="text-red-600 hover:underline">Delete</a>
                                             @endif
                                         </td>
                                     </tr>

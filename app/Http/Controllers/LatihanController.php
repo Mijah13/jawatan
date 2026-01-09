@@ -107,6 +107,46 @@ class LatihanController extends Controller
         return view('latihan.senarai', compact('tahun_list', 'selected_tahun', 'rows'));
     }
 
+    public function edit($id)
+    {
+        $kategori = KategoriLatihan::orderBy('kategori', 'asc')->get();
+        $jenis = JenisLatihan::orderBy('jenis', 'asc')->get();
+
+        $latihan = Latihan::findOrFail($id);
+
+        return view('kakitangan.latihan.edit', compact('kategori', 'jenis', 'latihan'));
+
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'tajuk' => 'string',
+            'kategori' => 'integer',
+            'jenis' => 'integer',
+            'mula' => 'date',
+            'tamat' => 'date|after_or_equal:mula',
+            'tempoh' => 'integer',
+            'tempat' => 'string',
+            'penganjur' => 'string',
+        ]);
+
+        $latihan = Latihan::findOrFail($id);
+
+        $latihan->update([
+            'tajuk' => $request->tajuk,
+            'kategori' => $request->kategori,
+            'jenis' => $request->jenis,
+            'mula' => $request->mula,
+            'tamat' => $request->tamat,
+            'tempoh' => $request->tempoh,
+            'tempat' => $request->tempat,
+            'penganjur' => $request->penganjur,
+            'kemaskini' => now(),
+        ]);
+
+        return redirect()->route('latihan.index')->with('success', 'Latihan berjaya diubah.');
+    }
     public function destroy($id)
     {
         $latihan = Latihan::findOrFail($id);

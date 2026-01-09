@@ -90,7 +90,7 @@
                                         <td class="p-3 border">{{ $l->tempat }}</td>
                                         <td class="p-3 border">{{ $l->penganjur }}</td>
                                         <td class="p-3 border text-center space-x-2">
-                                            <a href="#" class="text-indigo-600 hover:underline">Edit</a>
+                                            <a href="{{ route('latihan.edit', $l->id) }}" class="text-indigo-600 hover:underline">Edit</a>
                                             <form action="{{ route('latihan.destroy', $l->id) }}" method="POST" class="inline"
                                                 onsubmit="return confirm('Adakah anda pasti?');">
                                                 @csrf

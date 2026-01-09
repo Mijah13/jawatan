@@ -151,6 +151,23 @@
                                 <div class="col-span-1 border-l">
                                     <h3
                                         class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 border-b pb-1">
+                                        Isytihar Harta
+                                    </h3>
+                                    <div class="space-y-2">
+                                        <a href="{{ route('laporan.senarai_isytihar') }}"
+                                            class="text-sm text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded px-2 py-1 block">
+                                            Senarai Isytihar Harta Mengikut Gred
+                                        </a>
+                                        <a href="{{ route('laporan.gagal_isytihar') }}"
+                                            class="text-sm text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded px-2 py-1 block">
+                                            Senarai Gagal Isytihar Harta
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-span-1 border-l">
+                                    <h3
+                                        class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 border-b pb-1">
                                         Latihan
                                     </h3>
                                     <div class="space-y-2">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\GajiPokok;
 use App\Models\ElaunDapat;
+use App\Models\Elaun;
 use Illuminate\Support\Facades\Auth;
 
 class GajiController extends Controller
@@ -43,7 +44,7 @@ class GajiController extends Controller
 
     public function createElaun()
     {
-        $elaun = \App\Models\Elaun::orderBy('nama', 'asc')->get();
+        $elaun = Elaun::orderBy('nama', 'asc')->get();
         return view('kakitangan.gaji.elaun_create', compact('elaun'));
     }
 
@@ -61,6 +62,39 @@ class GajiController extends Controller
         ]);
 
         return redirect()->route('gaji.index')->with('success', 'Elaun berjaya ditambah.');
+    }
+
+    public function editElaun(Request $request)
+    {
+        $elaun = ElaunDapat::where('id', $request->id)->first();
+
+        $elaunList = Elaun::orderBy('nama', 'asc')->get();
+        return view('kakitangan.gaji.elaun_edit', compact('elaun', 'elaunList'));
+    }
+    public function updateElaun(Request $request)
+    {
+        $elaunRecord = ElaunDapat::where('id', $request->id)->firstOrFail();
+
+        $request->validate([
+            'elaun' => 'required|integer',
+            'nilai' => 'required|numeric',
+        ]);
+
+        $elaunRecord->update([
+            'elaun' => $request->elaun,
+            'nilai' => $request->nilai,
+        ]);
+
+        return redirect()->route('gaji.index')->with('success', 'Elaun berjaya diubah.');
+    }
+
+    public function destroyELaun(Request $request)
+    {
+        $elaunRecord = ElaunDapat::where('id', $request->id)->firstOrFail();
+
+        $elaunRecord->delete();
+
+        return redirect()->route('gaji.index')->with('success', 'Elaun berjaya dihapus.');
     }
     public function editGaji($id)
     {
@@ -85,4 +119,5 @@ class GajiController extends Controller
 
         return redirect()->route('gaji.index')->with('success', 'Maklumat gaji berjaya diubah.');
     }
+
 }

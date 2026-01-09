@@ -91,13 +91,13 @@
                                         </td>
 
                                         <td class="p-3 text-center border space-x-2">
-                                            <a href="#" class="inline-block px-3 py-1 text-xs font-semibold text-indigo-600
-                                                                   border border-indigo-600 rounded hover:bg-indigo-50">
+                                            <a href="{{ route('elaun.edit_elaun', $e->id) }}" class="inline-block px-3 py-1 text-xs font-semibold text-indigo-600
+                                                    border border-indigo-600 rounded hover:bg-indigo-50">
                                                 Edit
                                             </a>
 
-                                            <a href="#" class="inline-block px-3 py-1 text-xs font-semibold text-red-600
-                                                                   border border-red-600 rounded hover:bg-red-50">
+                                            <a href="{{ route('elaun.destroy_elaun', $e->id) }}" onclick="return confirm('Adakah anda ingin menghapus data ini?');" class="inline-block px-3 py-1 text-xs font-semibold text-red-600
+                                                    border border-red-600 rounded hover:bg-red-50">
                                                 Padam
                                             </a>
                                         </td>

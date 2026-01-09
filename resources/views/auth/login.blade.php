@@ -489,15 +489,6 @@
                             @enderror
                         </div>
 
-                        <!-- Remember Me -->
-                        <div class="remember-me">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="remember">
-                                    Ingat saya untuk akses seterusnya
-                                </label>
-                            </div>
-                        </div>
 
                         <!-- Submit Button -->
                         <button type="submit" class="btn-login" id="submitBtn">

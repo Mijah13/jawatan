@@ -80,6 +80,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/surat', [SuratPengesahanController::class, 'index'])->name('surat.index');
     Route::get('/surat/mohon', [SuratPengesahanController::class, 'create'])->name('surat.create');
     Route::post('/surat/simpan', [SuratPengesahanController::class, 'store'])->name('surat.store');
+    Route::get('/surat/edit/{id}', [SuratPengesahanController::class, 'edit'])->name('surat.edit');
+    Route::put('/surat/update/{id}', [SuratPengesahanController::class, 'update'])->name('surat.update');
+    Route::get('/surat/cetak/{id}', [SuratPengesahanController::class, 'cetak'])->name('surat.cetak');
 
     // Gaji
     Route::get('/gaji', [GajiController::class, 'index'])->name('gaji.index');
@@ -87,8 +90,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/gaji/simpan', [GajiController::class, 'storeGaji'])->name('gaji.store');
     Route::put('/gaji/update/{id}', [GajiController::class, 'updateGaji'])->name('gaji.update');
     Route::get('/gaji/gaji_edit/{id}', [GajiController::class, 'editGaji'])->name('gaji.gaji_edit');
+
     Route::get('/elaun/tambah', [GajiController::class, 'createElaun'])->name('elaun.create');
     Route::post('/elaun/simpan', [GajiController::class, 'storeElaun'])->name('elaun.store');
+
+    Route::get('/elaun/destroy_elaun/{id}', [GajiController::class, 'destroyElaun'])->name('elaun.destroy_elaun');
+    Route::get('/elaun/edit_elaun/{id}', [GajiController::class, 'editElaun'])->name('elaun.edit_elaun');
+    Route::put('/elaun/update_elaun/{id}', [GajiController::class, 'updateElaun'])->name('elaun.update_elaun');
 
     // Taraf Perkhidmatan
     Route::get('/taraf', [TarafPerkhidmatanController::class, 'edit'])->name('taraf.edit');
@@ -98,6 +106,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/surat_akuan', [SuratAkuanPerubatanController::class, 'index'])->name('surat_akuan.index');
     Route::get('/surat_akuan/mohon', [SuratAkuanPerubatanController::class, 'create'])->name('surat_akuan.create');
     Route::post('/surat_akuan/simpan', [SuratAkuanPerubatanController::class, 'store'])->name('surat_akuan.store');
+    Route::get('/surat_akuan/edit/{id}', [SuratAkuanPerubatanController::class, 'edit'])->name('surat_akuan.edit');
+    Route::put('/surat_akuan/update/{id}', [SuratAkuanPerubatanController::class, 'update'])->name('surat_akuan.update');
+    Route::get('/surat_akuan/delete/{id}', [SuratAkuanPerubatanController::class, 'destroy'])->name('surat_akuan.destroy');
+    Route::get('/surat_akuan/cetak/{id}', [SuratAkuanPerubatanController::class, 'cetak'])->name('surat_akuan.cetak');
+
 
     // Latihan
     Route::match(['get', 'post'], '/latihan/senarai', [LatihanController::class, 'senarai'])->name('latihan.senarai');
@@ -124,6 +137,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/baru', [LaporanController::class, 'baru'])->name('baru');
         Route::get('/bertukar', [LaporanController::class, 'bertukar'])->name('bertukar');
         Route::get('/apc_pingat', [LaporanController::class, 'apc_pingat'])->name('apc_pingat');
+        Route::get('/senarai_isytihar', [LaporanController::class, 'senarai_isytihar'])->name('senarai_isytihar');
+        Route::get('/gagal_isytihar', [LaporanController::class, 'gagal_isytihar'])->name('gagal_isytihar');
     });
 
     // Pentadbir - Penetapan (Settings) Routes

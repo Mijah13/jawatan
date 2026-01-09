@@ -26,13 +26,15 @@ class ElaunDapat extends Model
 	protected $casts = [
 		'idkakitangan' => 'int',
 		'elaun' => 'int',
-		'nilai' => 'float'
+		'nilai' => 'float',
+		'id' => 'int'
 	];
 
 	protected $fillable = [
 		'idkakitangan',
 		'elaun',
-		'nilai'
+		'nilai',
+		'id'
 	];
 
 	public function elaunRelation()
