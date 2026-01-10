@@ -107,7 +107,7 @@
                     var optionsLine = {
                         series: [{
                             name: "Kakitangan Baharu",
-                            data: @json($trendData)
+                            data: @json($trendData) //panggil dari controller Dashboard
                         }],
                         chart: {
                             height: 320,
