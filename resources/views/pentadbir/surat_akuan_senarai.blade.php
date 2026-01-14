@@ -53,7 +53,7 @@
                                                 {{ $row->namakakitangan }}
                                             </td>
                                             <td class="px-6 py-4 text-sm text-gray-900">
-                                                {{ $row->pesakit }}
+                                                {{ $row->nama_pesakit }}
                                             </td>
                                             <td class="px-6 py-4 text-sm text-gray-900">
                                                 {{ $row->hospital }}

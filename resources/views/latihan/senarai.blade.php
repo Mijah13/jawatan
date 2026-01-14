@@ -24,9 +24,10 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <button type="submit"
-                                class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                Senarai
+                            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md
+                                hover:bg-blue-700 focus:outline-none
+                                focus:ring-2 focus:ring-blue-500">
+                                Cari
                             </button>
                         </div>
                     </form>
@@ -111,13 +112,13 @@
                                                 {{ $row->tempat }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ $row->kategori }}
+                                                {{ $row->kategori_latihan }}
                                             </td>
                                             <td class="px-6 py-4 text-sm text-gray-500">
                                                 {{ $row->penganjur }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ $row->jenis }}
+                                                {{ $row->jenis_latihan }}
                                             </td>
                                         </tr>
                                     @endforeach

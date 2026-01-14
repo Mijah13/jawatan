@@ -33,10 +33,50 @@ class PingatController extends Controller
             'pingat' => $request->pingat,
             'tarikhterima' => $request->tarikhterima,
             'kemaskini' => now(),
+            'mykad' => 0,
         ]);
 
 
         return redirect()->route('pingat.create', ['id' => $request->id_kakitangan])
             ->with('success', 'Maklumat Pingat berjaya ditambah.');
+    }
+
+    public function edit($id)
+    {
+        $pingat = Pingat::findOrFail($id);
+        $kakitangan = Kakitangan::findOrFail($pingat->id_kakitangan);
+
+        return view('kakitangan.pingat_edit', compact('pingat', 'kakitangan'));
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'id_kakitangan' => 'required|integer',
+            'pingat' => 'required|string',
+            'tarikhterima' => 'required|date',
+        ]);
+
+        Pingat::where('id', $id)->update([
+            'id_kakitangan' => $request->id_kakitangan,
+            'pingat' => $request->pingat,
+            'tarikhterima' => $request->tarikhterima,
+            'kemaskini' => now(),
+        ]);
+
+        return redirect()->route('pingat.create', ['id' => $request->id_kakitangan])
+            ->with('success', 'Maklumat Pingat berjaya dikemaskini.');
+    }
+
+    public function destroy($id)
+    {
+        $pingat = Pingat::findOrFail($id);
+        $id_kakitangan = $pingat->id_kakitangan;
+
+        $pingat->delete();
+
+        return redirect()->route('pingat.create', ['id' => $id_kakitangan])
+            ->with('success', 'Maklumat Pingat berjaya dihapus.');
     }
 }

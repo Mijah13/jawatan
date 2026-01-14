@@ -79,10 +79,17 @@
                                     <tr>
                                         <td class="p-2 text-center border border-gray-300">{{ $index + 1 }}</td>
                                         <td class="p-2 text-center border border-gray-300">
-                                            {{ $apc->tahunterima->format('Y') }}
+                                            {{ $apc->tahunterima }}
                                         </td>
-                                        <td class="p-2 text-center border border-gray-300">
-                                            -
+                                        <td class="p-3 border text-center space-x-2">
+                                            <a href="{{ route('apc.edit', $apc->id) }}"
+                                                class="text-indigo-600 hover:underline">Edit</a>
+                                            <form action="{{ route('apc.destroy', $apc->id) }}" method="POST"
+                                                class="inline" onsubmit="return confirm('Adakah anda pasti?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:underline">Padam</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @empty

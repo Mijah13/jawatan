@@ -30,8 +30,9 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('pencapaian.store') }}" method="POST">
+                    <form action="{{ route('pencapaian.update', ['id' => $pencapaian->id]) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <input type="hidden" name="id_kakitangan" value="{{ $kakitangan->id }}">
 
                         <table class="w-full table-auto">
@@ -47,7 +48,7 @@
                                 <td class="p-2 bg-yellow-100">Pencapaian</td>
                                 <td class="p-2 bg-yellow-100">
                                     <textarea name="pencapaian" class="w-full p-2 border rounded" rows="4"
-                                        required></textarea>
+                                        required>{{ $pencapaian->pencapaian }}</textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -56,7 +57,7 @@
                                     <select name="peringkat" class="w-full p-2 border rounded">
                                         <option value="">Peringkat</option>
                                         @foreach($peringkat_list as $peringkat)
-                                            <option value="{{ $peringkat->id }}">{{ $peringkat->peringkat }}</option>
+                                            <option value="{{ $peringkat->id }}" {{ $pencapaian->peringkat == $peringkat->id ? 'selected' : '' }}>{{ $peringkat->peringkat }}</option>
                                         @endforeach
                                     </select>
                                 </td>
@@ -64,64 +65,26 @@
                             <tr>
                                 <td class="p-2 bg-yellow-100">Tarikh Pencapaian</td>
                                 <td class="p-2 bg-yellow-100">
-                                    <input type="date" name="tarikhpencapaian" class="p-2 border rounded" required>
+                                    <input type="date" name="tarikhpencapaian" class="p-2 border rounded" required
+                                        value="{{ $pencapaian->tarikhpencapaian ? $pencapaian->tarikhpencapaian->format('Y-m-d') : '' }}">
                                 </td>
                             </tr>
-                            <tr>
+                           <tr>
                                 <td class="p-2"></td>
-                                <td class="p-2">
+                                <td class="p-2 flex gap-2 mt-6">
                                     <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md
-           hover:bg-blue-700 focus:outline-none
-           focus:ring-2 focus:ring-blue-500">
+                                        hover:bg-blue-700 focus:outline-none
+                                        focus:ring-2 focus:ring-blue-500">
                                         Submit
                                     </button>
+                                    <a href="{{ route('pencapaian.create', ['id' => $pencapaian->id_kakitangan]) }}"
+                                        class="px-4 py-2 font-bold text-white bg-gray-500 rounded hover:bg-gray-700">
+                                        Back
+                                    </a>
                                 </td>
                             </tr>
                         </table>
-                    </form>
-
-                    <div class="mt-8">
-                        <h3 class="text-lg font-bold">Senarai Pencapaian</h3>
-                        <table class="w-full mt-4 border border-collapse border-gray-300">
-                            <thead>
-                                <tr class="bg-gray-200">
-                                    <th class="p-2 border border-gray-300">Bil</th>
-                                    <th class="p-2 border border-gray-300">Pencapaian</th>
-                                    <th class="p-2 border border-gray-300">Peringkat</th>
-                                    <th class="p-2 border border-gray-300">Tarikh Pencapaian</th>
-                                    <th class="p-2 border border-gray-300">Tindakan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($pencapaian_list as $index => $pencapaian)
-                                    <tr>
-                                        <td class="p-2 text-center border border-gray-300">{{ $index + 1 }}</td>
-                                        <td class="p-2 border border-gray-300">{{ $pencapaian->pencapaian }}</td>
-                                        <td class="p-2 text-center border border-gray-300">
-                                            {{ $pencapaian->peringkatSumbangan->peringkat ?? '-' }}
-                                        </td>
-                                        <td class="p-2 text-center border border-gray-300">
-                                            {{ $pencapaian->tarikhpencapaian->format('d/m/Y') }}
-                                        </td>
-                                         <td class="p-3 border text-center space-x-2">
-                                            <a href="{{ route('pencapaian.edit', $pencapaian->id) }}"
-                                                class="text-indigo-600 hover:underline">Edit</a>
-                                            <form action="{{ route('pencapaian.destroy', $pencapaian->id) }}" method="POST"
-                                                class="inline" onsubmit="return confirm('Adakah anda pasti?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:underline">Padam</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5" class="p-4 text-center border border-gray-300">Tiada rekod.</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+                    </form> 
 
                 </div>
             </div>

@@ -649,7 +649,7 @@ class PentadbirController extends Controller
             'surat_akuan_perubatan.hospital',
             'surat_akuan_perubatan.no_rujukan',
             'kakitangan.nama as namakakitangan',
-            'keluarga.nama as pesakit'
+            'keluarga.nama as nama_pesakit'
         )
             ->leftJoin('kakitangan', 'kakitangan.id', '=', 'surat_akuan_perubatan.idkakitangan')
             ->leftJoin('keluarga', 'keluarga.id', '=', 'surat_akuan_perubatan.pesakit')

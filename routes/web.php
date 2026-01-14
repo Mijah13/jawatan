@@ -62,18 +62,31 @@ Route::middleware('auth')->group(function () {
     // Harta
     Route::get('/harta/tambah/{id}', [HartaController::class, 'create'])->name('harta.create');
     Route::post('/harta/simpan', [HartaController::class, 'store'])->name('harta.store');
+    Route::get('/harta/edit/{id}', [HartaController::class, 'edit'])->name('harta.edit');
+    Route::put('/harta/update/{id}', [HartaController::class, 'update'])->name('harta.update');
+    Route::delete('/harta/destroy/{id}', [HartaController::class, 'destroy'])->name('harta.destroy');
 
     // APC
     Route::get('/apc/tambah/{id}', [ApcController::class, 'create'])->name('apc.create');
     Route::post('/apc/simpan', [ApcController::class, 'store'])->name('apc.store');
+    Route::get('/apc/edit/{id}', [ApcController::class, 'edit'])->name('apc.edit');
+    Route::put('/apc/update/{id}', [ApcController::class, 'update'])->name('apc.update');
+    Route::delete('/apc/destroy/{id}', [ApcController::class, 'destroy'])->name('apc.destroy');
+
 
     // Pencapaian
     Route::get('/pencapaian/tambah/{id}', [PencapaianController::class, 'create'])->name('pencapaian.create');
     Route::post('/pencapaian/simpan', [PencapaianController::class, 'store'])->name('pencapaian.store');
+    Route::get('/pencapaian/edit/{id}', [PencapaianController::class, 'edit'])->name('pencapaian.edit');
+    Route::put('/pencapaian/update/{id}', [PencapaianController::class, 'update'])->name('pencapaian.update');
+    Route::delete('/pencapaian/destroy/{id}', [PencapaianController::class, 'destroy'])->name('pencapaian.destroy');
 
     // Pingat
     Route::get('/pingat/tambah/{id}', [PingatController::class, 'create'])->name('pingat.create');
     Route::post('/pingat/simpan', [PingatController::class, 'store'])->name('pingat.store');
+    Route::get('/pingat/edit/{id}', [PingatController::class, 'edit'])->name('pingat.edit');
+    Route::put('/pingat/update/{id}', [PingatController::class, 'update'])->name('pingat.update');
+    Route::delete('/pingat/destroy/{id}', [PingatController::class, 'destroy'])->name('pingat.destroy');
 
     // Surat Pengesahan
     Route::get('/surat', [SuratPengesahanController::class, 'index'])->name('surat.index');
@@ -113,6 +126,7 @@ Route::middleware('auth')->group(function () {
 
     // Latihan
     Route::match(['get', 'post'], '/latihan/senarai', [LatihanController::class, 'senarai'])->name('latihan.senarai');
+    Route::match(['get', 'post'], '/latihan/laporan', [LatihanController::class, 'laporan'])->name('latihan.laporan');
     Route::resource('latihan', LatihanController::class);
 
     // =================================================

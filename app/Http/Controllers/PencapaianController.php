@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pencapaian;
 use App\Models\Kakitangan;
-use App\Models\Peringkatsumbangan;
+use App\Models\PeringkatSumbangan;
 
 class PencapaianController extends Controller
 {
     public function create(Request $request, $id_kakitangan)
     {
         $kakitangan = Kakitangan::findOrFail($id_kakitangan);
-        $peringkat_list = Peringkatsumbangan::orderBy('peringkat', 'asc')->get();
+        $peringkat_list = PeringkatSumbangan::orderBy('peringkat', 'asc')->get();
 
         $pencapaian_list = Pencapaian::with('peringkatSumbangan')
             ->where('id_kakitangan', $id_kakitangan)
@@ -41,5 +41,47 @@ class PencapaianController extends Controller
 
         return redirect()->route('pencapaian.create', ['id' => $request->id_kakitangan])
             ->with('success', 'Maklumat Pencapaian berjaya ditambah.');
+    }
+
+    public function edit($id)
+    {
+        $pencapaian = Pencapaian::findOrFail($id);
+        $kakitangan = Kakitangan::findOrFail($pencapaian->id_kakitangan);
+        $peringkat_list = PeringkatSumbangan::orderBy('peringkat', 'asc')->get();
+
+        return view('kakitangan.pencapaian_edit', compact('pencapaian', 'peringkat_list', 'kakitangan'));
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'id_kakitangan' => 'required|integer',
+            'pencapaian' => 'required|string',
+            'peringkat' => 'required|integer',
+            'tarikhpencapaian' => 'required|date',
+        ]);
+
+        Pencapaian::where('id', $id)->update([
+            'id_kakitangan' => $request->id_kakitangan,
+            'pencapaian' => $request->pencapaian,
+            'peringkat' => $request->peringkat,
+            'tarikhpencapaian' => $request->tarikhpencapaian,
+            'tarikhkemaskini' => now(),
+        ]);
+
+        return redirect()->route('pencapaian.create', ['id' => $request->id_kakitangan])
+            ->with('success', 'Maklumat Pencapaian berjaya dikemaskini.');
+    }
+
+    public function destroy($id)
+    {
+        $pencapaian = Pencapaian::findOrFail($id);
+        $id_kakitangan = $pencapaian->id_kakitangan;
+
+        $pencapaian->delete();
+
+        return redirect()->route('pencapaian.create', ['id' => $id_kakitangan])
+            ->with('success', 'Maklumat Pencapaian berjaya dihapus.');
     }
 }

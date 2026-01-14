@@ -178,7 +178,7 @@
                                             class="text-sm text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded px-2 py-1 block">
                                             Senarai Latihan
                                         </a>
-                                        <a href="#"
+                                        <a href="{{ route('latihan.laporan') }}"
                                             class="text-sm text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded px-2 py-1 block">
                                             Laporan Latihan
                                         </a>

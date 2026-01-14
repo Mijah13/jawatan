@@ -25,7 +25,6 @@ class Apc extends Model
 	public $timestamps = false;
 
 	protected $casts = [
-		'tahunterima' => 'datetime',
 		'tarikhkemaskini' => 'datetime',
 		'id_kakitangan' => 'int'
 	];

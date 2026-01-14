@@ -90,8 +90,8 @@ class LatihanController extends Controller
                 'latihan.tempoh',
                 'latihan.tempat',
                 'latihan.penganjur',
-                'kategori_latihan.kategori',
-                'jenis_latihan.jenis',
+                'kategori_latihan.kategori as kategori_latihan',
+                'jenis_latihan.jenis as jenis_latihan',
                 'kakitangan.nama',
                 'organisasi.kod'
             )
@@ -104,7 +104,44 @@ class LatihanController extends Controller
                 ->get();
         }
 
+        // SELECT latihan.id, latihan.tajuk, latihan.mula, latihan.tamat, latihan.tempoh, latihan.tempat, kategori_latihan.kategori, jenis_latihan.jenis, kakitangan.nama, organisasi.kod, latihan.penganjur FROM latihan LEFT JOIN kategori_latihan ON kategori_latihan.id = latihan.kategori LEFT JOIN jenis_latihan ON jenis_latihan.id = latihan.jenis LEFT JOIN kakitangan ON kakitangan.id = latihan.idkakitangan LEFT JOIN organisasi ON organisasi.id = kakitangan.penempatanoperasi WHERE YEAR(latihan.mula) = %s ORDER BY kakitangan.nama", GetSQLValueString($x_Recordset1, "date"));
+
         return view('latihan.senarai', compact('tahun_list', 'selected_tahun', 'rows'));
+    }
+    public function laporan(Request $request)
+    {
+        // Get distinct years from latihan table
+        $tahun_list = Latihan::selectRaw('DISTINCT YEAR(mula) as tahun')
+            ->orderBy('tahun', 'desc')
+            ->pluck('tahun');
+
+        // Get selected year from request, default to latest year
+        $selected_tahun = $request->input('tahun', $tahun_list->first());
+
+        // Fetch training records for selected year
+        $rows = [];
+        if ($selected_tahun) {
+            DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
+
+            $rows = DB::table('latihan_jumlah_hari_v2')
+                ->select(
+                    'latihan_jumlah_hari_v2.tahun',
+                    'latihan_jumlah_hari_v2.nama',
+                    'latihan_jumlah_hari_v2.mykad',
+                    'latihan_jumlah_hari_v2.jumlah_hari',
+                    'organisasi.program',
+                    'organisasi.kod'
+                )
+                ->leftJoin('kakitangan', 'kakitangan.mykad', '=', 'latihan_jumlah_hari_v2.mykad')
+                ->leftJoin('organisasi', 'organisasi.id', '=', 'kakitangan.penempatanoperasi')
+                ->where('latihan_jumlah_hari_v2.tahun', $selected_tahun)
+                ->orderBy('latihan_jumlah_hari_v2.nama', 'asc')
+                ->get();
+        }
+
+        // SELECT latihan.id, latihan.tajuk, latihan.mula, latihan.tamat, latihan.tempoh, latihan.tempat, kategori_latihan.kategori, jenis_latihan.jenis, kakitangan.nama, organisasi.kod, latihan.penganjur FROM latihan LEFT JOIN kategori_latihan ON kategori_latihan.id = latihan.kategori LEFT JOIN jenis_latihan ON jenis_latihan.id = latihan.jenis LEFT JOIN kakitangan ON kakitangan.id = latihan.idkakitangan LEFT JOIN organisasi ON organisasi.id = kakitangan.penempatanoperasi WHERE YEAR(latihan.mula) = %s ORDER BY kakitangan.nama", GetSQLValueString($x_Recordset1, "date"));
+
+        return view('latihan.laporan', compact('tahun_list', 'selected_tahun', 'rows'));
     }
 
     public function edit($id)

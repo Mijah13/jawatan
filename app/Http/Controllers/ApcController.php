@@ -28,15 +28,34 @@ class ApcController extends Controller
         ]);
 
         // Create date from year (e.g. 2023-01-01) since database expects date
-        $date = $request->tahunterima . '-01-01';
-
         Apc::create([
             'id_kakitangan' => $request->id_kakitangan,
-            'tahunterima' => $date,
+            'tahunterima' => $request->tahunterima,
             'tarikhkemaskini' => now(),
         ]);
 
         return redirect()->route('apc.create', ['id' => $request->id_kakitangan])
             ->with('success', 'Maklumat APC berjaya ditambah.');
+    }
+    public function edit($id)
+    {
+        $apc = Apc::findOrFail($id);
+        $kakitangan = Kakitangan::findOrFail($apc->id_kakitangan);
+
+        return view('kakitangan.apc_edit', compact('apc', 'kakitangan'));
+    }
+    public function update(Request $request, $id)
+    {
+        $apc = Apc::findOrFail($id);
+        $apc->update($request->all());
+        return redirect()->route('apc.create', ['id' => $apc->id_kakitangan])
+            ->with('success', 'Maklumat APC berjaya dikemaskini.');
+    }
+    public function destroy($id)
+    {
+        $apc = Apc::findOrFail($id);
+        $apc->delete();
+        return redirect()->route('apc.create', ['id' => $apc->id_kakitangan])
+            ->with('success', 'Maklumat APC berjaya dihapus.');
     }
 }
